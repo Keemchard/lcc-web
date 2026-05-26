@@ -1,0 +1,142 @@
+// ======================================================
+// RAW COLOR TOKENS
+// ======================================================
+
+// BLUE PALETTE
+
+$blue-950: #061521;
+$blue-900: #0b1f33;
+$blue-800: #12304d;
+$blue-700: #1c466e;
+$blue-600: #2d5f94;
+$blue-500: #4678b5;
+$blue-400: #6f9bcc;
+$blue-300: #9dbde0;
+$blue-200: #c9dbee;
+$blue-100: #e8f0f8;
+$blue-50: #f5f9fc;
+
+// SLATE
+
+$slate-950: #0f1720;
+$slate-900: #1a2433;
+$slate-800: #273244;
+$slate-700: #3b4758;
+$slate-600: #556070;
+$slate-500: #728094;
+$slate-400: #98a2b3;
+$slate-300: #c5ccd6;
+$slate-200: #dfe5ec;
+$slate-100: #edf2f7;
+$slate-50: #f8fafc;
+
+// WHITE
+
+$white: #ffffff;
+$white-soft: #fcfdff;
+$white-muted: #f7f9fb;
+
+// STATUS
+
+$green-500: #22c55e;
+$yellow-500: #f59e0b;
+$red-500: #ef4444;
+$sky-500: #0ea5e9;
+
+// ======================================================
+// SEMANTIC TOKENS
+// ======================================================
+
+$color-primary: $blue-800;
+$color-primary-light: $blue-600;
+$color-primary-dark: $blue-950;
+
+$color-accent: $blue-600;
+$color-accent-hover: $blue-700;
+$color-accent-soft: $blue-100;
+
+$color-text: $slate-800;
+$color-text-light: $slate-500;
+$color-text-heading: $blue-900;
+$color-text-inverse: $white;
+
+$bg-main: $white-soft;
+$bg-section: $blue-50;
+$bg-section-alt: $white-muted;
+$bg-dark-section: $blue-900;
+$bg-card: rgba(255, 255, 255, 0.85);
+$bg-navbar: rgba(255, 255, 255, 0.7);
+$bg-footer: $blue-950;
+
+$border-light: $slate-200;
+$border-medium: $slate-300;
+
+$color-success: $green-500;
+$color-warning: $yellow-500;
+$color-error: $red-500;
+$color-info: $sky-500;
+
+// ======================================================
+// TYPOGRAPHY
+// ======================================================
+
+$font-heading: var(--font-heading);
+$font-body: var(--font-body);
+
+// FONT SIZES
+
+$text-xs: 0.75rem;
+$text-sm: 0.875rem;
+$text-base: 1rem;
+$text-lg: 1.125rem;
+$text-xl: 1.25rem;
+$text-2xl: 1.5rem;
+$text-3xl: 2rem;
+$text-4xl: 3rem;
+$text-5xl: 4rem;
+
+// FONT WEIGHTS
+
+$font-regular: 400;
+$font-medium: 500;
+$font-semibold: 600;
+$font-bold: 700;
+
+// SPACING
+
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.25rem;
+$space-6: 1.5rem;
+$space-8: 2rem;
+$space-10: 2.5rem;
+$space-12: 3rem;
+$space-16: 4rem;
+$space-20: 5rem;
+
+// RADIUS
+
+$radius-sm: 6px;
+$radius-md: 12px;
+$radius-lg: 20px;
+$radius-xl: 28px;
+$radius-pill: 999px;
+
+// SHADOWS
+
+$shadow-sm: 0 2px 10px rgba(15, 23, 32, 0.04);
+$shadow-md: 0 10px 30px rgba(15, 23, 32, 0.08);
+$shadow-lg: 0 20px 50px rgba(15, 23, 32, 0.12);
+
+// LAYOUT
+
+$container-width: 1280px;
+$header-height: 84px;
+
+// TRANSITIONS
+
+$transition-fast: 0.2s ease;
+$transition-default: 0.3s ease;
+$transition-slow: 0.45s ease;
