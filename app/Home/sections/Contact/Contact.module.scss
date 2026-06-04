@@ -1,0 +1,42 @@
+@use "../../../../styles/abstracts/variables" as *;
+
+.container {
+  background-color: $color-primary-dark;
+  margin-top: 1rem;
+}
+
+.title {
+  font-size: $text-xl;
+  font-weight: normal;
+  color: $color-text-inverse;
+  margin-bottom: 0.8rem;
+}
+
+.contactDetails {
+  display: flex;
+  gap: 5rem;
+
+  .quickLinksContainer {
+    display: flex;
+    gap: 2rem;
+
+    .linksContainer {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .contactInfo {
+    .contactInfoContainer {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+
+      .contactItem {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+}

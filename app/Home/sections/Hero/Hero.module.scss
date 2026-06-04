@@ -1,0 +1,108 @@
+@use "../../../../styles/abstracts/variables" as *;
+@use "../../../../styles/abstracts/mixins" as *;
+
+.container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carouselContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100vh;
+}
+
+.heroBgImage {
+  object-fit: cover;
+  // opacity: 1;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  background: black;
+
+  opacity: 0.8;
+
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+
+  height: 100%;
+
+  @include flex-center-column;
+}
+
+.title {
+  @include header-title;
+
+  color: $color-text-inverse;
+}
+
+.subtitle {
+  margin-top: 5px;
+
+  line-height: 18px;
+
+  text-align: center;
+
+  max-width: 550px;
+
+  color: $blue-600;
+
+  @include sub-header;
+}
+
+.buttonContainer {
+  @include flex-center;
+
+  gap: 7px;
+
+  margin-top: 3rem;
+
+  .ctaButton {
+    border-radius: $radius-xs;
+
+    border-width: 1px;
+
+    padding: 20px 10px;
+
+    position: relative;
+
+    width: 120px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
+
+    @include opacity-button;
+  }
+
+  .ctaLabel {
+    font-size: $text-xs;
+    color: white;
+  }
+
+  .ctaIcon {
+    margin-top: 15px;
+
+    font-size: $text-3xl;
+
+    color: white;
+  }
+}

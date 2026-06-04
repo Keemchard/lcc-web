@@ -34,12 +34,17 @@
 // }
 
 import type { Metadata } from "next";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.scss";
 
-const inter = Inter({
+config.autoAddCss = false;
+
+const inter = Poppins({
   subsets: ["latin"],
   variable: "--font-body",
+  weight: "100",
 });
 
 const poppins = Poppins({
@@ -49,7 +54,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "LCC Church",
+  title: "LCC",
   description: "Modern Church Website",
 };
 

@@ -92,8 +92,9 @@ $text-lg: 1.125rem;
 $text-xl: 1.25rem;
 $text-2xl: 1.5rem;
 $text-3xl: 2rem;
-$text-4xl: 3rem;
-$text-5xl: 4rem;
+$text-4xl: 2.5rem;
+$text-5xl: 3rem;
+$text-6xl: 3.5rem;
 
 // FONT WEIGHTS
 
@@ -118,11 +119,13 @@ $space-20: 5rem;
 
 // RADIUS
 
+$radius-xs: 3px;
 $radius-sm: 6px;
 $radius-md: 12px;
 $radius-lg: 20px;
 $radius-xl: 28px;
 $radius-pill: 999px;
+$radius-circle: 50%;
 
 // SHADOWS
 
