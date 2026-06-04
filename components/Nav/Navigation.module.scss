@@ -55,33 +55,37 @@
   font-size: 0.85rem;
   font-weight: 500;
 
-  transition: all 0.25s ease;
+  transition: color 0.25s ease;
 }
 
 .link:hover {
   color: white;
 }
 
+.link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%) scaleX(0.5);
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: white;
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
 .activeLink {
   color: white;
-
   position: relative;
+  transition-delay: 0.5s;
 }
 
 .activeLink::after {
-  content: "";
-
-  position: absolute;
-
-  left: 50%;
-  bottom: -8px;
-
-  transform: translateX(-50%);
-
-  width: 20px;
-  height: 2px;
-
-  border-radius: 999px;
-
-  background: white;
+  opacity: 1;
+  transform: translateX(-50%) scaleX(1);
+  transition-delay: 0.5s;
 }

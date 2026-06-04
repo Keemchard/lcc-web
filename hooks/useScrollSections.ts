@@ -27,15 +27,27 @@ export const useScrollSections = ({ sectionIds }: UseScrollSectionsProps) => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleSection = entries.find((entry) => entry.isIntersecting);
+        const visibleSections = entries.filter((entry) => entry.isIntersecting);
 
-        if (visibleSection?.target.id) {
-          setActiveSection(visibleSection.target.id);
+        if (visibleSections.length === 0) return;
+
+        const mostVisibleSection = visibleSections.reduce((current, next) => {
+          return next.intersectionRatio > current.intersectionRatio
+            ? next
+            : current;
+        });
+
+        if (mostVisibleSection.target.id) {
+          setActiveSection((current) =>
+            current === mostVisibleSection.target.id
+              ? current
+              : mostVisibleSection.target.id,
+          );
         }
       },
       {
-        rootMargin: "-40% 0px -40% 0px",
-        threshold: 0,
+        rootMargin: "-20% 0px -20% 0px",
+        threshold: [0, 0.25, 0.5, 0.75, 1],
       },
     );
 
