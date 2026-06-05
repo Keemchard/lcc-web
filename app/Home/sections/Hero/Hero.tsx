@@ -11,7 +11,7 @@ import { navigationItems } from "@/constants/navigation";
 
 const heroImages = [
   "/images/hero-bg.jpg",
-  "/images/hero-bg.jpg",
+  "/images/hero-bg-2.jpg",
   "/images/hero-bg.jpg",
 ];
 
@@ -31,10 +31,10 @@ const Hero: FC = () => {
           }}
           dotsPosition="left"
           showArrows={false}
-          autoPlayDelay={10000}
+          autoPlayDelay={7000}
         >
-          {heroImages?.map((image) => (
-            <div key={image} className={styles.slide}>
+          {heroImages?.map((image, index) => (
+            <div key={index} className={styles.slide}>
               <Image
                 src={image}
                 alt="Hero Background"

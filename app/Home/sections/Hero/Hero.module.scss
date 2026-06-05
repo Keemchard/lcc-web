@@ -31,7 +31,7 @@
 
   background: black;
 
-  opacity: 0.8;
+  opacity: 0.88;
 
   z-index: 1;
 }
@@ -60,7 +60,7 @@
 
   max-width: 550px;
 
-  color: $blue-600;
+  color: $color-primary-light;
 
   @include sub-header;
 }

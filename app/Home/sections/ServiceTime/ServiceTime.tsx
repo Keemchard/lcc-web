@@ -6,7 +6,7 @@ import Card from "@/components/Card/Card";
 const ServiceTime: FC = () => {
   return (
     <section className={styles.container}>
-      <h4 className={styles.title}>SERVICES TIMES</h4>
+      <h4 className={styles.title}>SERVICE TIMES</h4>
       <p className={styles.subtitle}>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet,
         eligendi! Lorem ipsum dolor sit amet.

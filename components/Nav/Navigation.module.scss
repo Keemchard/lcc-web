@@ -3,24 +3,27 @@
 .container {
   position: fixed;
 
-  top: 24px;
-  left: 50%;
+  //   top: 24px;
+  //   left: 50%;
+  //   top: 0;
+  //   left: 50%;
 
-  transform: translateX(-50%);
+  //   transform: translateX(-50%);
 
   z-index: 999;
 
-  width: min(1100px, calc(100% - 40px));
+  //   width: min(1100px, calc(100% - 40px));
+  width: 100%;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 14px 24px;
+  padding: 28px 24px;
 
-  border-radius: 999px;
+  //   border-radius: 999px;
 
-  background: rgba(15, 15, 15, 0.55);
+  background: rgba(15, 15, 15, 0.85);
 
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -59,7 +62,8 @@
 }
 
 .link:hover {
-  color: white;
+  //   color: white;
+  color: $color-primary-light;
 }
 
 .link::after {
@@ -79,13 +83,16 @@
 }
 
 .activeLink {
-  color: white;
+  //   color: white;
+  color: $color-primary-light;
   position: relative;
   transition-delay: 0.5s;
+  font-weight: bold;
 }
 
 .activeLink::after {
   opacity: 1;
   transform: translateX(-50%) scaleX(1);
   transition-delay: 0.5s;
+  background-color: $color-primary-light;
 }

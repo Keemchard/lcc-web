@@ -23,7 +23,7 @@ export const heroCta: HeroCta[] = [
   },
   {
     id: 2,
-    label: "SERVICES TIMES",
+    label: "SERVICE TIMES",
     icon: faClock,
     sectionId: "#service-times",
   },

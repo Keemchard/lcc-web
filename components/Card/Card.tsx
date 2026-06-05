@@ -21,7 +21,13 @@ const Card: FC<CardProps> = (props) => {
   const { img, title, list, cta, subtitle } = props;
   return (
     <div className={styles.container}>
-      <Image className={styles.img} src={img} alt={img} />
+      <Image
+        className={styles.img}
+        src={img}
+        alt={img}
+        width={500}
+        height={300}
+      />
       <div className={styles.content}>
         <p className={styles.title}>{title}</p>
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
