@@ -8,21 +8,23 @@ const ServiceTime: FC = () => {
     <section className={styles.container}>
       <h4 className={styles.title}>SERVICE TIMES</h4>
       <p className={styles.subtitle}>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet,
-        eligendi! Lorem ipsum dolor sit amet.
+        Gather with us as we worship God, study His Word, and encourage one
+        another through Christ-centered fellowship.
       </p>
 
       <div className={styles.cardContainer}>
         {serviceTime.map((service, index) => {
-          const { img, title, subtitle, cta } = service;
+          const { img, title, subtitle, cta, list } = service;
           return (
-            <Card
-              key={index}
-              img={img}
-              title={title}
-              subtitle={subtitle}
-              cta={cta}
-            />
+            <div key={index}>
+              <Card
+                img={img}
+                title={title}
+                subtitle={subtitle}
+                cta={cta}
+                list={list}
+              />
+            </div>
           );
         })}
       </div>
