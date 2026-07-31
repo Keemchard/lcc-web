@@ -1,0 +1,98 @@
+@use "@/styles/abstracts/variables" as *;
+
+.container {
+  position: fixed;
+
+  //   top: 24px;
+  //   left: 50%;
+  //   top: 0;
+  //   left: 50%;
+
+  //   transform: translateX(-50%);
+
+  z-index: 999;
+
+  //   width: min(1100px, calc(100% - 40px));
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 28px 24px;
+
+  //   border-radius: 999px;
+
+  background: rgba(15, 15, 15, 0.85);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    inset 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.logo {
+  color: white;
+
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.links {
+  display: flex;
+  gap: 24px;
+}
+
+.link {
+  border: none;
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  cursor: pointer;
+
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  transition: color 0.25s ease;
+}
+
+.link:hover {
+  //   color: white;
+  color: $color-primary-light;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%) scaleX(0.5);
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: white;
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.activeLink {
+  //   color: white;
+  color: $color-primary-light;
+  position: relative;
+  transition-delay: 0.5s;
+  font-weight: bold;
+}
+
+.activeLink::after {
+  opacity: 1;
+  transform: translateX(-50%) scaleX(1);
+  transition-delay: 0.5s;
+  background-color: $color-primary-light;
+}
