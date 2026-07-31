@@ -2,6 +2,7 @@ import { FC } from "react";
 import styles from "./Footer.module.scss";
 import { socMedAccounts } from "@/constants/contact";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 const Footer: FC = () => {
   return (
@@ -12,7 +13,10 @@ const Footer: FC = () => {
             const { url, icon } = socMed;
             return (
               <a key={index} href={url} className={styles.socMedLink}>
-                <FontAwesomeIcon icon={icon} className={styles.contactIcon} />
+                <FontAwesomeIcon
+                  icon={icon as IconDefinition}
+                  className={styles.contactIcon}
+                />
               </a>
             );
           })}
