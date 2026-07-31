@@ -1,12 +1,19 @@
+"use client";
+
 import { FC } from "react";
 import styles from "./Contact.module.scss";
 import { quickLinksRow1, quickLinksRow2 } from "@/constants/quickLinks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons/faLocation";
-import Map from "@/components/Map/Map";
+// import Map from "@/components/Map/Map";
 import { contactInfo } from "@/constants/contact";
 import Footer from "@/components/Footer/Footer";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import dynamic from "next/dynamic";
+
+const Map = dynamic(() => import("@/components/Map/Map"), {
+  ssr: false,
+});
 
 const Contact: FC = () => {
   return (

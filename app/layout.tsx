@@ -39,6 +39,8 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.scss";
 
+import "leaflet/dist/leaflet.css";
+
 config.autoAddCss = false;
 
 const inter = Poppins({
