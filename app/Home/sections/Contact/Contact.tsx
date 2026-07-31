@@ -6,6 +6,7 @@ import { faLocation } from "@fortawesome/free-solid-svg-icons/faLocation";
 import Map from "@/components/Map/Map";
 import { contactInfo } from "@/constants/contact";
 import Footer from "@/components/Footer/Footer";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 const Contact: FC = () => {
   return (
@@ -47,7 +48,7 @@ const Contact: FC = () => {
                   return (
                     <div key={index} className={styles.contactItem}>
                       <FontAwesomeIcon
-                        icon={icon}
+                        icon={icon as IconDefinition}
                         className={styles.contactIcon}
                       />
                       <p className={styles.contactLabel}>{label}</p>
