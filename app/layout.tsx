@@ -56,7 +56,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Livingwater Community Church",
+  title: "LCC",
   description: "Livingwater Community Church",
 };
 
