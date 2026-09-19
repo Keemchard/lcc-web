@@ -19,7 +19,7 @@
   align-items: center;
   justify-content: space-between;
 
-  padding: 28px 24px;
+  padding: 17px 24px;
 
   //   border-radius: 999px;
 
@@ -36,10 +36,17 @@
 }
 
 .logo {
-  color: white;
+  display: flex;
+  align-items: center;
 
-  font-weight: 700;
-  letter-spacing: 2px;
+  img {
+    // On dark backgrounds the logo renders naturally (transparent PNG).
+    // On light/white backgrounds the dark text still reads cleanly — no filter needed.
+    // Drop shadow gives it just enough lift when bg contrast is low.
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.35));
+    height: 50px;
+    width: auto;
+  }
 }
 
 .links {

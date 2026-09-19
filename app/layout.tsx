@@ -56,8 +56,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "LCC",
-  description: "Modern Church Website",
+  title: "Livingwater Community Church",
+  description: "Livingwater Community Church",
 };
 
 export default function RootLayout({

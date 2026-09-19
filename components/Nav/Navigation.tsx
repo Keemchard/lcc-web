@@ -1,6 +1,7 @@
 "use client";
 
 import { FC } from "react";
+import Image from "next/image";
 
 import styles from "./Navigation.module.scss";
 
@@ -15,7 +16,15 @@ const Navigation: FC = () => {
 
   return (
     <nav className={styles.container}>
-      <div className={styles.logo}>LCC</div>
+      <div className={styles.logo}>
+        <Image
+          src="/images/lcc-logo.png"
+          alt="Livingwater Community Church"
+          width={165}
+          height={50}
+          priority
+        />
+      </div>
 
       <div className={styles.links}>
         {navigationItems.map((item) => (
