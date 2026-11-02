@@ -1,60 +1,88 @@
 @use "../../styles/abstracts/mixins" as *;
 @use "../../styles/abstracts/variables" as *;
-@use "../../styles/abstracts/breakpoint" as *;
 
 .container {
-  min-width: 300px;
-  height: auto;
-  background-color: $color-primary-light;
+  background-color: $white;
   border-radius: $radius-md;
   display: flex;
   flex-direction: column;
-  // align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 0;
-  margin: 0;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  border: 1px solid $border-light;
+  transition:
+    transform $transition-default,
+    box-shadow $transition-default;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
 
   .img {
     width: 100%;
-    height: 230px;
+    height: 210px;
     object-fit: cover;
-    object-position: 100% 30%;
-    background-color: $color-primary;
-    border-top-left-radius: $radius-md;
-    border-top-right-radius: $radius-md;
+    object-position: center 30%;
   }
 
   .content {
-    padding: 10px 20px 20px 20px;
+    padding: $space-5 $space-6 $space-6;
     display: flex;
     flex-direction: column;
-
-    justify-content: center;
-    gap: 10px;
+    gap: $space-2;
+    flex: 1;
 
     .title {
-      font-size: $text-2xl;
-      font-weight: normal;
-      color: $color-primary-dark;
+      font-size: $text-xl;
+      font-weight: $font-semibold;
+      color: $color-text-heading;
+    }
+
+    .subtitle {
+      font-size: $text-sm;
+      color: $color-text-light;
+      line-height: 1.5;
     }
 
     .listItem {
       display: flex;
       align-items: center;
-      margin-bottom: 5px;
-      gap: 10px;
+      gap: $space-3;
+      margin-bottom: $space-1;
     }
 
-    button {
-      margin-top: 20px;
-      @include opacity-button;
-      padding: 5px 10px;
-      border-radius: $radius-xs;
+    .listIcon {
+      color: $color-accent;
+      width: 14px;
+      flex-shrink: 0;
     }
 
-    // p{
-    //   color: white;
-    // }
+    .listLabel {
+      font-size: $text-sm;
+      color: $color-text;
+    }
+
+    .ctaButton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: $space-2;
+      margin-top: $space-4;
+      padding: $space-3 $space-5;
+      border-radius: $radius-sm;
+      background-color: $color-primary;
+      color: $color-text-inverse;
+      font-size: $text-sm;
+      font-weight: $font-medium;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color $transition-fast;
+      width: 100%;
+
+      &:hover {
+        background-color: $color-accent-hover;
+      }
+    }
   }
 }

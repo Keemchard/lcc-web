@@ -3,12 +3,11 @@
 .container {
   background-color: $color-primary-dark;
   margin-top: 1rem;
-  // min-height: 100vh;
 }
 
 .title {
   font-size: $text-xl;
-  font-weight: normal;
+  font-weight: $font-semibold;
   color: $color-text-inverse;
   margin-bottom: 0.8rem;
 }
@@ -16,6 +15,17 @@
 .contactDetails {
   display: flex;
   gap: 5rem;
+  padding: 3rem 2rem;
+
+  @media (max-width: 1023px) {
+    gap: 3rem;
+  }
+
+  @media (max-width: 639px) {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2.5rem 1.5rem;
+  }
 
   .quickLinksContainer {
     display: flex;
@@ -27,16 +37,40 @@
     }
   }
 
+  .link {
+    color: $blue-300;
+    font-size: $text-sm;
+    text-decoration: none;
+    padding: 0.2rem 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
   .contactInfo {
     .contactInfoContainer {
       display: flex;
       align-items: flex-start;
       gap: 2rem;
+      flex-wrap: wrap;
 
       .contactItem {
         display: flex;
         align-items: center;
         gap: 10px;
+      }
+
+      .contactIcon {
+        color: $blue-400;
+        width: 16px;
+        flex-shrink: 0;
+      }
+
+      .contactLabel {
+        color: $blue-200;
+        font-size: $text-sm;
       }
     }
   }

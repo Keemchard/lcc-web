@@ -2,44 +2,60 @@
 @use "../../../../styles/abstracts/mixins" as *;
 
 .container {
-  height: 100vh;
-  // background-color: gray;
+  height: auto;
+  background-color: $bg-section;
+  padding: 5rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  //   justify-content: center;
 }
 
 .title {
   @include section-title;
-  //   color: $color-text-inverse;
+  color: $color-text-heading;
 }
 
 .subtitle {
-  margin-top: 10px;
-  line-height: 18px;
+  margin-top: $space-3;
+  line-height: 1.6;
   text-align: center;
-  max-width: 500px;
-  color: $color-primary-dark;
+  max-width: 520px;
+  color: $color-text-light;
+  font-size: $text-base;
 }
 
 .cardContainer {
-  display: flex;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-6;
   margin-top: 3rem;
-}
-
-.cardContainer > div {
   width: 100%;
+  max-width: $container-width;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 680px;
+  }
+
+  @media (max-width: 639px) {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
 }
 
 .viewAllButton {
-  margin-top: 3.5rem;
-  padding: 10px 40px;
-  border-radius: $radius-xs;
+  margin-top: 3rem;
+  padding: $space-3 $space-10;
+  border-radius: $radius-sm;
   background-color: $color-primary-dark;
   color: $color-text-inverse;
   border: 1px solid transparent;
-  font-size: $text-lg;
-  border-radius: $radius-xs;
+  font-size: $text-base;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $color-accent-hover;
+  }
 }

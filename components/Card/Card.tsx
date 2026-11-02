@@ -9,12 +9,18 @@ export type IconWithLabel = {
   label: string;
 };
 
+export type CtaProps = {
+  label: string;
+  icon?: IconDefinition;
+  href?: string;
+};
+
 export type CardProps = {
   img: string;
   title: string;
   subtitle?: string;
   list?: IconWithLabel[];
-  cta?: IconWithLabel;
+  cta?: CtaProps;
 };
 
 const Card: FC<CardProps> = (props) => {
@@ -24,7 +30,7 @@ const Card: FC<CardProps> = (props) => {
       <Image
         className={styles.img}
         src={img}
-        alt={img}
+        alt={title}
         width={500}
         height={300}
       />
@@ -46,12 +52,23 @@ const Card: FC<CardProps> = (props) => {
               );
             })}
 
-          {cta && (
-            <button className={styles.ctaButton}>
-              {cta.icon && <FontAwesomeIcon icon={cta.icon} />}
-              {cta.label}
-            </button>
-          )}
+          {cta &&
+            (cta.href ? (
+              <a
+                href={cta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.ctaButton}
+              >
+                {cta.icon && <FontAwesomeIcon icon={cta.icon} />}
+                {cta.label}
+              </a>
+            ) : (
+              <button className={styles.ctaButton}>
+                {cta.icon && <FontAwesomeIcon icon={cta.icon} />}
+                {cta.label}
+              </button>
+            ))}
         </div>
       </div>
     </div>
