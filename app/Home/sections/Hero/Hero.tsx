@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousel from "@/components/Carousel/Carousel";
 import { useScrollSections } from "@/hooks/useScrollSections";
 import { navigationItems } from "@/constants/navigation";
+import { useRouter } from "next/navigation";
 
 const heroImages = [
   "/images/hero-bg.jpg",
@@ -21,6 +22,7 @@ const Hero: FC = () => {
   const { scrollToSection } = useScrollSections({
     sectionIds: navigationItems.map((item) => item.id),
   });
+  const router = useRouter();
 
   return (
     <div className={styles.container}>
@@ -56,14 +58,16 @@ const Hero: FC = () => {
 
         <div className={styles.buttonContainer}>
           {heroCta.map((cta) => {
-            const { id, label, icon, sectionId } = cta;
+            const { id, label, icon, sectionId, href } = cta;
 
             return (
               <button
                 key={id}
                 className={styles.ctaButton}
                 onClick={() => {
-                  if (sectionId) {
+                  if (href) {
+                    router.push(href);
+                  } else if (sectionId) {
                     scrollToSection(sectionId.slice(1));
                   }
                 }}

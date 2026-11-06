@@ -6,13 +6,10 @@ import Hero from "./sections/Hero/Hero";
 import Carousels from "./sections/Carousels/Carousels";
 import ServiceTime from "./sections/ServiceTime/ServiceTime";
 import Contact from "./sections/Contact/Contact";
-import Navigation from "@/components/Nav/Navigation";
 
 const Home: FC = () => {
   return (
     <div className={styles.container}>
-      <Navigation />
-
       <div id="home">
         <Hero />
       </div>

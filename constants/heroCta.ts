@@ -20,6 +20,7 @@ export const heroCta: HeroCta[] = [
     id: 1,
     label: "WHO WE ARE",
     icon: faChurch,
+    href: "/about",
   },
   {
     id: 2,

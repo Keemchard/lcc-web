@@ -4,6 +4,11 @@ export const navigationItems = [
     id: "home",
   },
   {
+    label: "ABOUT",
+    id: "about",
+    href: "/about",
+  },
+  {
     label: "MINISTRIES",
     id: "ministries",
   },

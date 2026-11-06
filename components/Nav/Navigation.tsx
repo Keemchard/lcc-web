@@ -2,19 +2,37 @@
 
 import { FC, useState } from "react";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import styles from "./Navigation.module.scss";
 import { navigationItems } from "@/constants/navigation";
 import { useScrollSections } from "@/hooks/useScrollSections";
 
 const Navigation: FC = () => {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHome = pathname === "/";
+
   const { activeSection, scrollToSection } = useScrollSections({
-    sectionIds: navigationItems.map((item) => item.id),
+    sectionIds: navigationItems.filter((i) => !i.href).map((i) => i.id),
   });
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleNavClick = (id: string) => {
-    scrollToSection(id);
+  const handleNavClick = (item: (typeof navigationItems)[number]) => {
     setIsMenuOpen(false);
+
+    if (item.href) {
+      router.push(item.href);
+    } else if (isHome) {
+      scrollToSection(item.id);
+    } else {
+      router.push(`/#${item.id}`);
+    }
+  };
+
+  const isActive = (item: (typeof navigationItems)[number]) => {
+    if (item.href) return pathname === item.href;
+    return isHome && activeSection === item.id;
   };
 
   return (
@@ -33,10 +51,8 @@ const Navigation: FC = () => {
         {navigationItems.map((item) => (
           <button
             key={item.id}
-            onClick={() => scrollToSection(item.id)}
-            className={`${styles.link} ${
-              activeSection === item.id ? styles.activeLink : ""
-            }`}
+            onClick={() => handleNavClick(item)}
+            className={`${styles.link} ${isActive(item) ? styles.activeLink : ""}`}
           >
             {item.label}
           </button>
@@ -59,10 +75,8 @@ const Navigation: FC = () => {
           {navigationItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => handleNavClick(item.id)}
-              className={`${styles.mobileLink} ${
-                activeSection === item.id ? styles.activeMobileLink : ""
-              }`}
+              onClick={() => handleNavClick(item)}
+              className={`${styles.mobileLink} ${isActive(item) ? styles.activeMobileLink : ""}`}
             >
               {item.label}
             </button>
