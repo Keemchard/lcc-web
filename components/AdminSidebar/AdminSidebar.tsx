@@ -11,6 +11,7 @@ import {
   faClockRotateLeft,
   faUsers,
   faRightFromBracket,
+  faChartPie,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./AdminSidebar.module.scss";
 import type { AdminUser } from "@/types";
@@ -23,6 +24,7 @@ const navItems = [
   { label: "Dashboard", href: "/admin", icon: faGauge },
   { label: "Carousel Slides", href: "/admin/carousels", icon: faImages },
   { label: "Service Times", href: "/admin/service-times", icon: faClock },
+  { label: "Finance", href: "/admin/finance", icon: faChartPie },
   { label: "Change History", href: "/admin/history", icon: faClockRotateLeft },
 ];
 
