@@ -1,0 +1,380 @@
+@use "../../../styles/abstracts/variables" as *;
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $space-6;
+}
+
+.pageTitle {
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: $color-text-heading;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: $radius-md;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  background: $white;
+}
+
+.th {
+  background: $bg-section;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  text-align: left;
+  padding: $space-3 $space-4;
+  color: $color-text;
+}
+
+.td {
+  padding: $space-3 $space-4;
+  border-top: 1px solid $border-light;
+  font-size: $text-sm;
+  vertical-align: middle;
+  color: $color-text;
+}
+
+.thumbnail {
+  width: 60px !important;
+  height: 40px !important;
+  min-width: 60px;
+  max-width: 60px;
+  border-radius: $radius-xs;
+  object-fit: cover;
+  display: block;
+}
+
+.actions {
+  display: flex;
+  gap: $space-2;
+}
+
+.editButton {
+  padding: $space-1 $space-3;
+  background-color: $color-accent;
+  color: $color-text-inverse;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $color-accent-hover;
+  }
+}
+
+.deleteButton {
+  padding: $space-1 $space-3;
+  background-color: $color-error;
+  color: $color-text-inverse;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.addButton {
+  padding: $space-3 $space-6;
+  background-color: $color-primary-dark;
+  color: $color-text-inverse;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $color-accent-hover;
+  }
+}
+
+.badge {
+  display: inline-block;
+  color: $color-text-inverse;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  padding: 2px 8px;
+  border-radius: $radius-pill;
+  text-transform: capitalize;
+}
+
+.badgeCreate {
+  background-color: $green-500;
+}
+
+.badgeUpdate {
+  background-color: $color-info;
+}
+
+.badgeDelete {
+  background-color: $color-error;
+}
+
+.emptyState {
+  text-align: center;
+  padding: $space-16;
+  color: $color-text-light;
+  font-size: $text-sm;
+}
+
+.formCard {
+  background: $white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-md;
+  padding: $space-8;
+  max-width: 640px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  margin-bottom: $space-5;
+}
+
+.formLabel {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $color-text;
+}
+
+.formInput,
+.formTextarea {
+  padding: $space-3 $space-4;
+  border: 1px solid $border-medium;
+  border-radius: $radius-sm;
+  font-size: $text-base;
+  transition: border-color $transition-fast;
+  outline: none;
+
+  &:focus {
+    border-color: $color-accent;
+  }
+
+  &::placeholder {
+    color: $slate-400;
+  }
+}
+
+.formTextarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.formActions {
+  display: flex;
+  gap: $space-3;
+  margin-top: $space-6;
+}
+
+.submitButton {
+  padding: $space-3 $space-6;
+  background-color: $color-primary-dark;
+  color: $color-text-inverse;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover:not(:disabled) {
+    background-color: $color-accent-hover;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.cancelButton {
+  padding: $space-3 $space-6;
+  background: $white;
+  border: 1px solid $border-medium;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $color-text;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $slate-50;
+  }
+}
+
+.statusPending {
+  color: $color-warning;
+  font-weight: $font-medium;
+}
+
+.statusApproved {
+  color: $color-success;
+  font-weight: $font-medium;
+}
+
+.approveButton {
+  padding: $space-1 $space-3;
+  background-color: $color-success;
+  color: $color-text-inverse;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.rejectButton {
+  padding: $space-1 $space-3;
+  background-color: $color-error;
+  color: $color-text-inverse;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.draggableRow {
+  cursor: grab;
+  transition: background-color $transition-fast;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &[draggable="true"]:hover {
+    background-color: $blue-50;
+  }
+}
+
+.dragHandle {
+  display: inline-block;
+  color: $slate-400;
+  cursor: grab;
+  font-size: 16px;
+  line-height: 1;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
+    color: $slate-600;
+  }
+}
+
+.savingIndicator {
+  font-size: $text-xs;
+  color: $color-accent;
+  font-weight: $font-medium;
+  margin-top: $space-1;
+  display: block;
+}
+
+.sectionSubtitle {
+  font-size: $text-lg;
+  font-weight: $font-medium;
+  color: $color-text-heading;
+  margin-top: $space-6;
+  margin-bottom: $space-4;
+}
+
+.historyMeta {
+  font-size: $text-xs;
+  color: $color-text-light;
+}
+
+.changesDiff {
+  font-size: $text-xs;
+  font-family: monospace;
+  background: $bg-section;
+  padding: $space-3;
+  border-radius: $radius-sm;
+  margin-top: $space-2;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+// Dashboard-specific
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-6;
+  margin-top: $space-6;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statCard {
+  background: $white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  padding: $space-6;
+  border: 1px solid $border-light;
+  transition: box-shadow $transition-fast;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+}
+
+.statTitle {
+  font-size: $text-sm;
+  color: $color-text-light;
+  font-weight: $font-medium;
+  margin-bottom: $space-2;
+}
+
+.statLink {
+  display: inline-block;
+  margin-top: $space-3;
+  font-size: $text-sm;
+  color: $color-accent;
+  font-weight: $font-medium;
+
+  &:hover {
+    color: $color-accent-hover;
+  }
+}

@@ -1,0 +1,46 @@
+@use "../../../styles/abstracts/variables" as *;
+@use "../../../styles/abstracts/mixins" as *;
+
+.page {
+  padding-top: 7rem;
+}
+
+.hero {
+  background-color: $bg-dark-section;
+  padding: 5rem $space-6;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  letter-spacing: 0.16em;
+  color: $color-primary-light;
+  text-transform: uppercase;
+  margin-bottom: $space-4;
+}
+
+.heading {
+  font-size: $text-4xl;
+  font-weight: $font-bold;
+  color: $white;
+  margin-bottom: $space-4;
+
+  @media (max-width: 639px) {
+    font-size: $text-2xl;
+  }
+}
+
+.subtitle {
+  font-size: $text-base;
+  color: $blue-300;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.content {
+  padding: 4rem $space-6;
+  max-width: $container-width;
+  margin: 0 auto;
+}

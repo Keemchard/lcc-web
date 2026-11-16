@@ -1,0 +1,105 @@
+@use "../../styles/abstracts/variables" as *;
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  background-color: $blue-950;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.logo {
+  padding: $space-6 $space-6 $space-4;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  img {
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.35));
+    height: 42px;
+    width: auto;
+  }
+}
+
+.nav {
+  flex: 1;
+  padding: $space-4 $space-3;
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  overflow-y: auto;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $radius-sm;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  transition:
+    background-color $transition-fast,
+    color $transition-fast;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: $white;
+  }
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: $white;
+}
+
+.navIcon {
+  width: 16px;
+  opacity: 0.8;
+}
+
+.userSection {
+  padding: $space-4 $space-4;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+}
+
+.userInfo {
+  min-width: 0;
+  flex: 1;
+}
+
+.userEmail {
+  font-size: $text-xs;
+  color: $blue-300;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  font-size: $text-xs;
+  color: $blue-500;
+  text-transform: capitalize;
+}
+
+.logoutButton {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: $space-2;
+  border-radius: $radius-sm;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-error;
+  }
+}

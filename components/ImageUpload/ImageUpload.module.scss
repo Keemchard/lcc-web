@@ -1,0 +1,55 @@
+@use "../../styles/abstracts/variables" as *;
+
+.dropzone {
+  border: 2px dashed $border-medium;
+  border-radius: $radius-md;
+  padding: $space-6;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color $transition-fast,
+    background-color $transition-fast;
+
+  &:hover {
+    border-color: $color-accent;
+    background-color: $color-accent-soft;
+  }
+}
+
+.dragging {
+  border-color: $color-accent;
+  background-color: $color-accent-soft;
+}
+
+.previewWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+}
+
+.preview {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: $radius-sm;
+  object-fit: cover;
+}
+
+.changeText {
+  font-size: $text-sm;
+  color: $color-text-light;
+}
+
+.placeholder {
+  padding: $space-8 0;
+
+  p {
+    color: $color-text-light;
+    font-size: $text-sm;
+  }
+}
+
+.hiddenInput {
+  display: none;
+}

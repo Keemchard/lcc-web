@@ -4,7 +4,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import { Poppins } from "next/font/google";
 import "./globals.scss";
 import "leaflet/dist/leaflet.css";
-import Navigation from "@/components/Nav/Navigation";
+import { AuthProvider } from "@/lib/auth/context";
 
 config.autoAddCss = false;
 
@@ -106,8 +106,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bodyFont.variable} ${headingFont.variable}`}>
       <body>
-        <Navigation />
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
