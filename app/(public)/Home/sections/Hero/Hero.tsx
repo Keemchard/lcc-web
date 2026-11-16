@@ -41,7 +41,9 @@ const Hero: FC = () => {
                 src={image}
                 alt="Hero Background"
                 fill
-                priority
+                sizes="100vw"
+                priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
                 className={styles.heroBgImage}
               />
             </div>

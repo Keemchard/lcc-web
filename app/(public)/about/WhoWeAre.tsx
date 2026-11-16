@@ -127,6 +127,7 @@ const WhoWeAre: FC = () => {
           src="/images/hero-bg.jpg"
           alt="Livingwater Community Church"
           fill
+          sizes="100vw"
           priority
           className={styles.pageHeroBg}
         />
@@ -152,6 +153,8 @@ const WhoWeAre: FC = () => {
                 src="/images/sunday-service.jpg"
                 alt="Our Story"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
                 className={styles.pageHeroBg}
               />
             </div>

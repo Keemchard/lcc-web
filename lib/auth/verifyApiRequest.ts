@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { verifySessionCookie, getUserRole } from "./session";
+import { verifyToken, getUserRole } from "./session";
 import type { AdminUser } from "@/types";
 
 export async function verifyAdmin(): Promise<AdminUser | null> {
@@ -7,7 +7,7 @@ export async function verifyAdmin(): Promise<AdminUser | null> {
   const session = cookieStore.get("session")?.value;
   if (!session) return null;
 
-  const decoded = await verifySessionCookie(session);
+  const decoded = await verifyToken(session);
   if (!decoded) return null;
 
   const role = await getUserRole(decoded.uid);

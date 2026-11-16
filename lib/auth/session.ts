@@ -1,19 +1,10 @@
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import type { UserRole } from "@/types";
 
-const SESSION_EXPIRY = 60 * 60 * 24 * 5 * 1000; // 5 days
-
-export async function createSessionCookie(idToken: string) {
-  if (!adminAuth) throw new Error("Firebase Admin not configured");
-  return adminAuth.createSessionCookie(idToken, {
-    expiresIn: SESSION_EXPIRY,
-  });
-}
-
-export async function verifySessionCookie(cookie: string) {
+export async function verifyToken(token: string) {
   if (!adminAuth) return null;
   try {
-    return await adminAuth.verifySessionCookie(cookie, true);
+    return await adminAuth.verifyIdToken(token);
   } catch {
     return null;
   }

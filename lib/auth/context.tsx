@@ -79,6 +79,13 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         if (snap.exists()) {
           setUserDoc(snap.data() as UserDocClient);
         }
+        // Refresh the session cookie with a fresh ID token
+        const token = await firebaseUser.getIdToken();
+        await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ idToken: token }),
+        });
       } else {
         setUserDoc(null);
       }

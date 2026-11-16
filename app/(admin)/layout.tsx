@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { verifySessionCookie, getUserRole } from "@/lib/auth/session";
+import { verifyToken, getUserRole } from "@/lib/auth/session";
 import { adminDb } from "@/lib/firebase/admin";
 import AdminSidebar from "@/components/AdminSidebar/AdminSidebar";
 import styles from "./Admin.module.scss";
@@ -15,7 +15,7 @@ export default async function AdminLayout({
 
   if (!session || !adminDb) redirect("/login");
 
-  const decoded = await verifySessionCookie(session);
+  const decoded = await verifyToken(session);
   if (!decoded) redirect("/login");
 
   const role = await getUserRole(decoded.uid);

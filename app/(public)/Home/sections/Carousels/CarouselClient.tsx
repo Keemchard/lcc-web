@@ -19,12 +19,15 @@ const CarouselClient: FC<Props> = ({ slides }) => {
         align: "start",
       }}
     >
-      {slides.map((slide) => (
+      {slides.map((slide, index) => (
         <div key={slide.id} className={styles.slide}>
           <Image
             src={slide.imageUrl}
             alt={slide.title}
             fill
+            sizes="100vw"
+            priority={index === 0}
+            loading={index === 0 ? "eager" : "lazy"}
             className={styles.slideImage}
           />
           <div className={styles.slideOverlay} />

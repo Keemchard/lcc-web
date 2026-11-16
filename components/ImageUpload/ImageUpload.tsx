@@ -2,6 +2,7 @@
 
 import { FC, useState, useRef, DragEvent, ChangeEvent } from "react";
 import Image from "next/image";
+import { compressImage } from "@/utils/compressImage";
 import styles from "./ImageUpload.module.scss";
 
 type Props = {
@@ -14,13 +15,17 @@ const ImageUpload: FC<Props> = ({ currentImageUrl, onFileSelected }) => {
     currentImageUrl || null
   );
   const [isDragging, setIsDragging] = useState(false);
+  const [compressing, setCompressing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleFile = (file: File) => {
+  const handleFile = async (file: File) => {
     if (!file.type.startsWith("image/")) return;
-    const url = URL.createObjectURL(file);
+    setCompressing(true);
+    const compressed = await compressImage(file);
+    const url = URL.createObjectURL(compressed);
     setPreview(url);
-    onFileSelected(file);
+    setCompressing(false);
+    onFileSelected(compressed);
   };
 
   const handleDrop = (e: DragEvent) => {
@@ -46,7 +51,11 @@ const ImageUpload: FC<Props> = ({ currentImageUrl, onFileSelected }) => {
       onDrop={handleDrop}
       onClick={() => inputRef.current?.click()}
     >
-      {preview ? (
+      {compressing ? (
+        <div className={styles.placeholder}>
+          <p>Optimizing image...</p>
+        </div>
+      ) : preview ? (
         <div className={styles.previewWrapper}>
           <Image
             src={preview}

@@ -33,6 +33,8 @@ const Card: FC<CardProps> = (props) => {
         alt={title}
         width={500}
         height={300}
+        sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+        loading="lazy"
       />
       <div className={styles.content}>
         <p className={styles.title}>{title}</p>

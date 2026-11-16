@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { verifySessionCookie, getUserRole } from "@/lib/auth/session";
+import { verifyToken, getUserRole } from "@/lib/auth/session";
 import { adminDb } from "@/lib/firebase/admin";
 
 export async function GET() {
@@ -11,7 +11,7 @@ export async function GET() {
       return NextResponse.json({ user: null });
     }
 
-    const decoded = await verifySessionCookie(session);
+    const decoded = await verifyToken(session);
     if (!decoded) {
       return NextResponse.json({ user: null });
     }

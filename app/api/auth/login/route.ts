@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
-import { createSessionCookie } from "@/lib/auth/session";
 
 export async function POST(request: Request) {
   try {
@@ -36,7 +35,6 @@ export async function POST(request: Request) {
 
     let role = userSnap.data()?.role;
 
-    // Auto-promote supreme admin on first login
     const supremeEmail = process.env.SUPREME_ADMIN_EMAIL;
     if (
       supremeEmail &&
@@ -69,10 +67,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
-    const sessionCookie = await createSessionCookie(idToken);
     const cookieStore = await cookies();
-    cookieStore.set("session", sessionCookie, {
-      maxAge: 60 * 60 * 24 * 5,
+    cookieStore.set("session", idToken, {
+      maxAge: 60 * 60,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
