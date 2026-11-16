@@ -51,14 +51,24 @@ const googleProvider = new GoogleAuthProvider();
 async function exchangeTokenForSession(
   idToken: string
 ): Promise<{ error?: string; userDoc?: UserDocClient }> {
-  const res = await fetch("/api/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ idToken }),
-  });
-  const data = await res.json();
-  if (!res.ok) return { error: data.error || "Login failed" };
-  return { userDoc: data.user };
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ idToken }),
+    });
+    const text = await res.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      return { error: "Server error. Please try again." };
+    }
+    if (!res.ok) return { error: data.error || "Login failed" };
+    return { userDoc: data.user };
+  } catch {
+    return { error: "Network error. Please try again." };
+  }
 }
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
