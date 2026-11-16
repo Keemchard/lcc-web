@@ -27,6 +27,7 @@ export default function FinanceListPage() {
   const [filter, setFilter] = useState<"all" | ReportType>("all");
   const [deleting, setDeleting] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [chartMode, setChartMode] = useState<"bar" | "pie">("bar");
 
   useEffect(() => {
     fetch("/api/finance")
@@ -208,46 +209,105 @@ export default function FinanceListPage() {
           <div className={styles.chartsRow}>
             {/* Monthly income vs expenses */}
             <div className={styles.chartCard}>
-              <h3 className={styles.chartTitle}>Monthly income vs expenses</h3>
-              <div className={styles.barChart}>
-                {monthlyData.map((d, i) => (
-                  <div key={i} className={styles.barGroup}>
-                    <div className={styles.barPair}>
-                      <div
-                        className={styles.barIncome}
-                        style={{
-                          height: `${(d.income / maxMonthly) * 160}px`,
-                        }}
-                        title={`Income: ${formatPHP(d.income)}`}
-                      />
-                      <div
-                        className={styles.barExpense}
-                        style={{
-                          height: `${(d.expenses / maxMonthly) * 160}px`,
-                        }}
-                        title={`Expenses: ${formatPHP(d.expenses)}`}
-                      />
-                    </div>
-                    <span className={styles.barLabel}>{d.month}</span>
+              <div className={styles.chartHeader}>
+                <h3 className={styles.chartTitle}>Monthly income vs expenses</h3>
+                <div className={styles.chartToggle}>
+                  <button
+                    className={`${styles.toggleBtn} ${chartMode === "bar" ? styles.toggleBtnActive : ""}`}
+                    onClick={() => setChartMode("bar")}
+                    title="Bar chart"
+                  >
+                    |||
+                  </button>
+                  <button
+                    className={`${styles.toggleBtn} ${chartMode === "pie" ? styles.toggleBtnActive : ""}`}
+                    onClick={() => setChartMode("pie")}
+                    title="Pie chart"
+                  >
+                    ◔
+                  </button>
+                </div>
+              </div>
+
+              {chartMode === "bar" ? (
+                <>
+                  <div className={styles.barChart}>
+                    {monthlyData.map((d, i) => (
+                      <div key={i} className={styles.barGroup}>
+                        <div className={styles.barPair}>
+                          <div
+                            className={styles.barIncome}
+                            style={{
+                              height: `${(d.income / maxMonthly) * 160}px`,
+                            }}
+                            title={`Income: ${formatPHP(d.income)}`}
+                          />
+                          <div
+                            className={styles.barExpense}
+                            style={{
+                              height: `${(d.expenses / maxMonthly) * 160}px`,
+                            }}
+                            title={`Expenses: ${formatPHP(d.expenses)}`}
+                          />
+                        </div>
+                        <span className={styles.barLabel}>{d.month}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <div className={styles.chartLegend}>
-                <span className={styles.legendItem}>
-                  <span
-                    className={styles.legendDot}
-                    style={{ backgroundColor: "#2d5f94" }}
-                  />
-                  Income
-                </span>
-                <span className={styles.legendItem}>
-                  <span
-                    className={styles.legendDot}
-                    style={{ backgroundColor: "#e5484d" }}
-                  />
-                  Expenses
-                </span>
-              </div>
+                  <div className={styles.chartLegend}>
+                    <span className={styles.legendItem}>
+                      <span
+                        className={styles.legendDot}
+                        style={{ backgroundColor: "#2d5f94" }}
+                      />
+                      Income
+                    </span>
+                    <span className={styles.legendItem}>
+                      <span
+                        className={styles.legendDot}
+                        style={{ backgroundColor: "#e5484d" }}
+                      />
+                      Expenses
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <div className={styles.pieContainer}>
+                  <div
+                    className={styles.pieChart}
+                    style={{
+                      background: totalIncomeYear + totalExpensesYear > 0
+                        ? `conic-gradient(#2d5f94 0% ${(totalIncomeYear / (totalIncomeYear + totalExpensesYear)) * 100}%, #e5484d ${(totalIncomeYear / (totalIncomeYear + totalExpensesYear)) * 100}% 100%)`
+                        : "#e5e7eb",
+                    }}
+                  >
+                    <div className={styles.pieHole}>
+                      <span className={styles.pieHoleLabel}>Net</span>
+                      <span className={styles.pieHoleValue}>
+                        {formatCompact(totalIncomeYear - totalExpensesYear)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className={styles.pieLegend}>
+                    <div className={styles.pieLegendRow}>
+                      <span
+                        className={styles.legendDot}
+                        style={{ backgroundColor: "#2d5f94" }}
+                      />
+                      <span>Income</span>
+                      <strong>{formatPHP(totalIncomeYear)}</strong>
+                    </div>
+                    <div className={styles.pieLegendRow}>
+                      <span
+                        className={styles.legendDot}
+                        style={{ backgroundColor: "#e5484d" }}
+                      />
+                      <span>Expenses</span>
+                      <strong>{formatPHP(totalExpensesYear)}</strong>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Expense breakdown */}

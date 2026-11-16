@@ -569,11 +569,117 @@
   padding: $space-6;
 }
 
+.chartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $space-6;
+}
+
 .chartTitle {
   font-size: $text-sm;
   font-weight: $font-semibold;
   color: $color-text-heading;
-  margin-bottom: $space-6;
+}
+
+.chartToggle {
+  display: flex;
+  border: 1px solid $border-light;
+  border-radius: $radius-sm;
+  overflow: hidden;
+}
+
+.toggleBtn {
+  padding: 4px 10px;
+  border: none;
+  background: $white;
+  font-size: 13px;
+  color: $color-text-light;
+  cursor: pointer;
+  transition: all $transition-fast;
+  line-height: 1;
+
+  &:first-child {
+    border-right: 1px solid $border-light;
+  }
+
+  &:hover {
+    background: $slate-50;
+  }
+}
+
+.toggleBtnActive {
+  background: $color-primary-dark;
+  color: $white;
+
+  &:hover {
+    background: $color-primary-dark;
+  }
+}
+
+// Pie chart
+.pieContainer {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
+  padding: $space-4 0;
+
+  @media (max-width: 639px) {
+    flex-direction: column;
+  }
+}
+
+.pieChart {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pieHole {
+  position: absolute;
+  inset: 30px;
+  background: $white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pieHoleLabel {
+  font-size: 11px;
+  color: $color-text-light;
+}
+
+.pieHoleValue {
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: $color-text-heading;
+  font-variant-numeric: tabular-nums;
+}
+
+.pieLegend {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.pieLegendRow {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $text-sm;
+  color: $color-text;
+
+  strong {
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+    font-weight: $font-semibold;
+    min-width: 100px;
+    text-align: right;
+  }
 }
 
 .chartEmpty {
