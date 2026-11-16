@@ -279,6 +279,16 @@
     box-shadow: $shadow-md;
   }
 
+  .valueLetter {
+    font-size: $text-4xl;
+    font-weight: $font-bold;
+    color: $color-primary-light;
+    opacity: 0.2;
+    line-height: 1;
+    margin-bottom: $space-2;
+    display: block;
+  }
+
   .valueIcon {
     font-size: $text-2xl;
     color: $color-primary-light;
@@ -297,6 +307,15 @@
     font-size: $text-sm;
     color: $color-text-light;
     line-height: 1.8;
+  }
+
+  .valueVerse {
+    display: block;
+    margin-top: $space-3;
+    font-size: $text-xs;
+    color: $color-primary-light;
+    font-weight: $font-medium;
+    font-style: italic;
   }
 }
 

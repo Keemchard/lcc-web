@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: "%s | Livingwater Community Church",
   },
   description:
-    "Welcome to Livingwater Community Church in Tanza, Cavite. Join us for Sunday Service at 8:00 AM and weekly Prayer Meeting every Wednesday at 7:30 PM. Love God. Love people. Make disciples.",
+    "Livingwater Community Church in Tanza, Cavite — we exist to glorify God, by loving Him and our neighbors, preaching His Word, making disciples, and serving with compassion. Sunday Service at 8:00 AM · Prayer Meeting every Wednesday at 7:30 PM.",
   keywords: [
     "Livingwater Community Church",
     "LCC Church Tanza",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     siteName: "Livingwater Community Church",
     title: "Livingwater Community Church — Tanza, Cavite",
     description:
-      "A Christ-centered church in Tanza, Cavite. Sunday Service at 8:00 AM · Prayer Meeting every Wednesday 7:30 PM. Love God. Love people. Make disciples.",
+      "We exist to glorify God, by loving Him and our neighbors, preaching His Word, making disciples, and serving with compassion. Sunday Service at 8:00 AM · Prayer Meeting every Wednesday 7:30 PM.",
     images: [
       {
         url: "/images/hero-bg.jpg",

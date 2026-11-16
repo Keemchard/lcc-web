@@ -12,11 +12,11 @@ type ChangeEntry = {
   changes?: Record<string, { before: unknown; after: unknown }>;
   performedBy: string;
   performedByEmail: string;
-  performedAt: { _seconds: number };
+  performedAt: string | null;
 };
 
-function formatDate(seconds: number) {
-  return new Date(seconds * 1000).toLocaleString("en-PH", {
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleString("en-PH", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -71,7 +71,7 @@ export default function HistoryPage() {
                 <td className={styles.td}>
                   <span className={styles.historyMeta}>
                     {entry.performedAt
-                      ? formatDate(entry.performedAt._seconds)
+                      ? formatDate(entry.performedAt)
                       : "—"}
                   </span>
                 </td>

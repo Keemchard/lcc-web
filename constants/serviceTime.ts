@@ -6,16 +6,14 @@ import { faMicrophone } from "@fortawesome/free-solid-svg-icons/faMicrophone";
 const serviceTime: CardProps[] = [
   {
     img: "/images/sunday-service.jpg",
-    title: "Sunday Service",
-    // subtitle:
-    //   "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet, eligendi! Lorem ipsum dolor sit amet.",
+    title: "Morning Devotion",
     cta: {
       label: "Learn More",
     },
     list: [
       {
         icon: faClock,
-        label: "8:00 AM",
+        label: "Sunday, 7:40 AM",
       },
       {
         icon: faLocationDot,
@@ -28,21 +26,61 @@ const serviceTime: CardProps[] = [
     ],
   },
   {
+    img: "/images/sunday-service.jpg",
+    title: "Sunday Service",
+    cta: {
+      label: "Learn More",
+    },
+    list: [
+      {
+        icon: faClock,
+        label: "Sunday, 8:00 AM",
+      },
+      {
+        icon: faLocationDot,
+        label: "LCC Worship Hall",
+      },
+      {
+        icon: faMicrophone,
+        label: "Rev. Raffy Salvador",
+      },
+    ],
+  },
+  {
+    img: "/images/sunday-service.jpg",
+    title: "Sunday School",
+    cta: {
+      label: "Learn More",
+    },
+    list: [
+      {
+        icon: faClock,
+        label: "Sunday, 10:30 AM",
+      },
+      {
+        icon: faLocationDot,
+        label: "LCC Worship Hall",
+      },
+      {
+        icon: faMicrophone,
+        label: "Church Leaders",
+      },
+    ],
+  },
+  {
     img: "/images/virtual-prayer-meeting.jpg",
     title: "Prayer Meeting",
-    // subtitle:
-    //   "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet, eligendi! Lorem ipsum dolor sit amet.",
     cta: {
       label: "Join Online",
     },
     list: [
       {
         icon: faClock,
-        label: "7:30 PM",
+        label: "Wednesday, 7:30 PM",
       },
       {
         icon: faLocationDot,
-        label: "Online",
+        label: "Online / Face to Face",
       },
       {
         icon: faMicrophone,
@@ -51,17 +89,36 @@ const serviceTime: CardProps[] = [
     ],
   },
   {
-    img: "/images/dawn-watch.jpg",
-    title: "Dawn Watch",
-    // subtitle:
-    //   "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet, eligendi! Lorem ipsum dolor sit amet.",
+    img: "/images/sunday-service.jpg",
+    title: "Outreach Bible Study",
     cta: {
       label: "Learn More",
     },
     list: [
       {
         icon: faClock,
-        label: "4:00 AM",
+        label: "Thu–Sat, 2:00–6:00 PM",
+      },
+      {
+        icon: faLocationDot,
+        label: "Various Locations",
+      },
+      {
+        icon: faMicrophone,
+        label: "Church Pastors",
+      },
+    ],
+  },
+  {
+    img: "/images/dawn-watch.jpg",
+    title: "Dawn Watch",
+    cta: {
+      label: "Learn More",
+    },
+    list: [
+      {
+        icon: faClock,
+        label: "Saturday, 4:00 AM",
       },
       {
         icon: faLocationDot,
