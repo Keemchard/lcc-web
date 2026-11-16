@@ -4,44 +4,34 @@ import { getFirestore, type Firestore } from "firebase-admin/firestore";
 
 let app: App | null = null;
 
-function parsePrivateKey(key: string): string {
-  let parsed = key;
-  // Strip surrounding quotes if present
-  if (parsed.startsWith('"') && parsed.endsWith('"')) {
-    try {
-      parsed = JSON.parse(parsed);
-    } catch {
-      parsed = parsed.slice(1, -1);
-    }
-  }
-  // Convert literal \n to actual newlines
-  parsed = parsed.replace(/\\n/g, "\n");
-  return parsed;
+function getServiceAccount() {
+  const base64 = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
+  if (!base64) return null;
+
+  try {
+    // Try base64 decode first
+    const decoded = Buffer.from(base64, "base64").toString("utf-8");
+    const parsed = JSON.parse(decoded);
+    if (parsed.project_id && parsed.private_key) return parsed;
+  } catch {}
+
+  try {
+    // Fall back to raw JSON
+    const parsed = JSON.parse(base64);
+    if (parsed.project_id && parsed.private_key) return parsed;
+  } catch {}
+
+  return null;
 }
 
-const projectId = process.env.FIREBASE_PROJECT_ID;
-const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-const privateKey = process.env.FIREBASE_PRIVATE_KEY;
-const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
+const serviceAccount = getServiceAccount();
 
-if (serviceAccountJson || (projectId && clientEmail && privateKey)) {
+if (serviceAccount) {
   try {
-    if (getApps().length === 0) {
-      if (serviceAccountJson) {
-        const serviceAccount = JSON.parse(serviceAccountJson);
-        app = initializeApp({ credential: cert(serviceAccount) });
-      } else {
-        app = initializeApp({
-          credential: cert({
-            projectId: projectId!,
-            clientEmail: clientEmail!,
-            privateKey: parsePrivateKey(privateKey!),
-          }),
-        });
-      }
-    } else {
-      app = getApps()[0];
-    }
+    app =
+      getApps().length === 0
+        ? initializeApp({ credential: cert(serviceAccount) })
+        : getApps()[0];
   } catch (e) {
     console.warn("Firebase Admin SDK initialization failed:", e);
   }
