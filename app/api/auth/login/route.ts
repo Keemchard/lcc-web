@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
+import { FieldValue } from "firebase-admin/firestore";
 
 export async function POST(request: Request) {
   try {
@@ -11,10 +12,15 @@ export async function POST(request: Request) {
       );
     }
 
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+
     const { idToken } = await request.json();
-    if (!idToken) {
+    if (!idToken || typeof idToken !== "string") {
       return NextResponse.json(
-        { error: "Missing ID token" },
+        { error: "Invalid request" },
         { status: 400 }
       );
     }
@@ -67,13 +73,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
+    // Log successful login
+    await userRef.update({
+      lastLoginAt: FieldValue.serverTimestamp(),
+      lastLoginIp: ip,
+    });
+
     const cookieStore = await cookies();
     cookieStore.set("session", idToken, {
       maxAge: 60 * 60,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
-      sameSite: "lax",
+      sameSite: "strict",
     });
 
     return NextResponse.json({
@@ -84,7 +96,6 @@ export async function POST(request: Request) {
       },
     });
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Login failed";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: "Authentication failed" }, { status: 500 });
   }
 }

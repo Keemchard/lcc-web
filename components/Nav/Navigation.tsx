@@ -7,6 +7,13 @@ import styles from "./Navigation.module.scss";
 import { navigationItems } from "@/constants/navigation";
 import { useScrollSections } from "@/hooks/useScrollSections";
 
+export const HIDE_NAV_ROUTES = ["/signup", "/login"] as const;
+
+export const shouldHideNav = (pathname: string): boolean =>
+  HIDE_NAV_ROUTES.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
+  );
+
 const Navigation: FC = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -17,6 +24,8 @@ const Navigation: FC = () => {
   });
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  if (shouldHideNav(pathname)) return null;
 
   const handleNavClick = (item: (typeof navigationItems)[number]) => {
     setIsMenuOpen(false);
@@ -65,9 +74,15 @@ const Navigation: FC = () => {
         aria-label="Toggle menu"
         aria-expanded={isMenuOpen}
       >
-        <span className={`${styles.bar} ${isMenuOpen ? styles.barOpen1 : ""}`} />
-        <span className={`${styles.bar} ${isMenuOpen ? styles.barOpen2 : ""}`} />
-        <span className={`${styles.bar} ${isMenuOpen ? styles.barOpen3 : ""}`} />
+        <span
+          className={`${styles.bar} ${isMenuOpen ? styles.barOpen1 : ""}`}
+        />
+        <span
+          className={`${styles.bar} ${isMenuOpen ? styles.barOpen2 : ""}`}
+        />
+        <span
+          className={`${styles.bar} ${isMenuOpen ? styles.barOpen3 : ""}`}
+        />
       </button>
 
       {isMenuOpen && (

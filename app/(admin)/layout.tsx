@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { verifyToken, getUserRole } from "@/lib/auth/session";
 import { adminDb } from "@/lib/firebase/admin";
 import AdminSidebar from "@/components/AdminSidebar/AdminSidebar";
+import SessionGuard from "@/components/AdminSidebar/SessionGuard";
 import styles from "./Admin.module.scss";
 
 export default async function AdminLayout({
@@ -32,6 +33,7 @@ export default async function AdminLayout({
 
   return (
     <div className={styles.adminLayout}>
+      <SessionGuard />
       <AdminSidebar user={adminUser} />
       <main className={styles.adminContent}>{children}</main>
     </div>

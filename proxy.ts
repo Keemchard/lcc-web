@@ -11,13 +11,9 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  if ((pathname === "/login" || pathname === "/signup") && sessionCookie) {
-    return NextResponse.redirect(new URL("/admin", request.url));
-  }
-
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/login", "/signup"],
+  matcher: ["/admin/:path*"],
 };

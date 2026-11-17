@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, FormEvent, useState } from "react";
+import Link from "next/link";
 import { useAuth } from "@/lib/auth/context";
 import styles from "./Signup.module.scss";
 
@@ -16,6 +17,24 @@ const SignupForm: FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (displayName.trim().length < 2) {
+      setError("Full name must be at least 2 characters");
+      return;
+    }
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters");
+      return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      setError("Password must contain at least one uppercase letter");
+      return;
+    }
+    if (!/[0-9]/.test(password)) {
+      setError("Password must contain at least one number");
+      return;
+    }
+
     setLoading(true);
 
     const result = await signup(email, password, displayName);
@@ -31,6 +50,9 @@ const SignupForm: FC = () => {
   if (success) {
     return (
       <div className={styles.container}>
+        <Link href="/" className={styles.homeButton}>
+          ← Back to Home
+        </Link>
         <div className={styles.card}>
           <h2 className={styles.title}>Account Created</h2>
           <p className={styles.successMessage}>
@@ -47,11 +69,12 @@ const SignupForm: FC = () => {
 
   return (
     <div className={styles.container}>
+      <Link href="/" className={styles.homeButton}>
+        ← Back to Home
+      </Link>
       <div className={styles.card}>
         <h2 className={styles.title}>Create account</h2>
-        <p className={styles.subtitle}>
-          Request access to the LCC admin panel
-        </p>
+        <p className={styles.subtitle}>Request access to the LCC admin panel</p>
 
         {error && <div className={styles.error}>{error}</div>}
 
@@ -88,8 +111,8 @@ const SignupForm: FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              minLength={6}
-              placeholder="At least 6 characters"
+              minLength={8}
+              placeholder="Min 8 chars, 1 uppercase, 1 number"
             />
           </div>
 
@@ -103,8 +126,7 @@ const SignupForm: FC = () => {
         </form>
 
         <p className={styles.loginLink}>
-          Already have an account?{" "}
-          <a href="/login">Sign in</a>
+          Already have an account? <a href="/login">Sign in</a>
         </p>
       </div>
     </div>
