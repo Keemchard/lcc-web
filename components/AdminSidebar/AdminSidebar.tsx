@@ -3,6 +3,7 @@
 import { FC } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGauge,
@@ -63,14 +64,14 @@ const AdminSidebar: FC<Props> = ({ user }) => {
               ? pathname === "/admin"
               : pathname.startsWith(item.href);
           return (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className={`${styles.navItem} ${isActive ? styles.active : ""}`}
             >
               <FontAwesomeIcon icon={item.icon} className={styles.navIcon} />
               {item.label}
-            </a>
+            </Link>
           );
         })}
       </nav>
