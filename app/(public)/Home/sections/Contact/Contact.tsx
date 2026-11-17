@@ -33,7 +33,7 @@ const Contact: FC = () => {
                   );
                 })}
               </div>
-              <div className={styles.linksContainer}>
+              {/* <div className={styles.linksContainer}>
                 {quickLinksRow2.map((link, index) => {
                   const { name, url } = link;
                   return (
@@ -42,7 +42,7 @@ const Contact: FC = () => {
                     </a>
                   );
                 })}
-              </div>
+              </div> */}
             </div>
           </div>
           <div className={styles.contactInfo}>
