@@ -99,15 +99,14 @@ export default function FinanceListPage() {
     .slice(0, 10);
   const maxCategory = Math.max(...categoryBreakdown.map((c) => c[1]), 1);
 
-  // Summary stats
-  const totalIncomeYear = allYearReports.reduce((sum, r) => {
-    const t = computeTotals(r);
-    return sum + t.totalIncome;
-  }, 0);
-  const totalExpensesYear = allYearReports.reduce((sum, r) => {
-    const t = computeTotals(r);
-    return sum + t.totalExpenses;
-  }, 0);
+  // Summary stats — separated by fund
+  const generalTithes = receiptsReports.reduce((sum, r) => sum + computeTotals(r).totalIncome, 0);
+  const buildingOfferings = buildingReports.reduce((sum, r) => sum + computeTotals(r).totalIncome, 0);
+  const totalIncomeYear = generalTithes + buildingOfferings;
+
+  const generalExpenses = receiptsReports.reduce((sum, r) => sum + computeTotals(r).totalExpenses, 0);
+  const buildingExpenses = buildingReports.reduce((sum, r) => sum + computeTotals(r).totalExpenses, 0);
+  const totalExpensesYear = generalExpenses + buildingExpenses;
 
   const latestReceipt = receiptsReports[0];
   const latestBuilding = buildingReports[0];
@@ -118,19 +117,30 @@ export default function FinanceListPage() {
     ? computeTotals(latestBuilding).balanceToForward
     : 0;
 
-  // Top 5 expenses
-  const topExpenses = categoryBreakdown.slice(0, 5);
+  // All expenses, top 5 highlighted
+  const [showAllExpenses, setShowAllExpenses] = useState(false);
+  const visibleExpenses = showAllExpenses
+    ? categoryBreakdown
+    : categoryBreakdown.slice(0, 5);
 
   return (
     <div>
       <div className={adminStyles.pageHeader}>
         <h1 className={adminStyles.pageTitle}>Finance</h1>
-        <button
-          className={adminStyles.addButton}
-          onClick={() => router.push("/admin/finance/new")}
-        >
-          New report
-        </button>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button
+            className={styles.exportYearButton}
+            onClick={() => router.push("/admin/finance/budget")}
+          >
+            Budget planning
+          </button>
+          <button
+            className={adminStyles.addButton}
+            onClick={() => router.push("/admin/finance/new")}
+          >
+            New report
+          </button>
+        </div>
       </div>
 
       <div className={styles.filterTabs}>
@@ -178,11 +188,19 @@ export default function FinanceListPage() {
             <div className={styles.summaryCard}>
               <p className={styles.summaryLabel}>Total tithes & offerings</p>
               <p className={styles.summaryValue}>{formatPHP(totalIncomeYear)}</p>
+              <div className={styles.summaryBreakdown}>
+                <span>General fund tithes: {formatPHP(generalTithes)}</span>
+                <span>Building fund offerings: {formatPHP(buildingOfferings)}</span>
+              </div>
               <p className={styles.summaryMeta}>{selectedYear} year to date</p>
             </div>
             <div className={styles.summaryCard}>
               <p className={styles.summaryLabel}>Total expenses</p>
               <p className={styles.summaryValue}>{formatPHP(totalExpensesYear)}</p>
+              <div className={styles.summaryBreakdown}>
+                <span>General fund: {formatPHP(generalExpenses)}</span>
+                <span>Building fund: {formatPHP(buildingExpenses)}</span>
+              </div>
               <p className={styles.summaryMeta}>{selectedYear} year to date</p>
             </div>
             <div className={styles.summaryCard}>
@@ -340,11 +358,11 @@ export default function FinanceListPage() {
             </div>
           </div>
 
-          {/* Top expenses list */}
-          {topExpenses.length > 0 && (
+          {/* Spending categories list */}
+          {categoryBreakdown.length > 0 && (
             <div className={styles.chartCard} style={{ marginTop: 24 }}>
               <h3 className={styles.chartTitle}>
-                Top spending categories — {selectedYear}
+                Spending categories — {selectedYear}
               </h3>
               <table className={adminStyles.table}>
                 <thead>
@@ -366,8 +384,11 @@ export default function FinanceListPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {topExpenses.map(([cat, amount], i) => (
-                    <tr key={i}>
+                  {visibleExpenses.map(([cat, amount], i) => (
+                    <tr
+                      key={i}
+                      style={i < 5 ? { fontWeight: 500 } : undefined}
+                    >
                       <td className={adminStyles.td}>{i + 1}</td>
                       <td className={adminStyles.td}>{cat}</td>
                       <td
@@ -386,6 +407,17 @@ export default function FinanceListPage() {
                   ))}
                 </tbody>
               </table>
+              {categoryBreakdown.length > 5 && (
+                <button
+                  className={styles.addButton}
+                  style={{ marginTop: 12 }}
+                  onClick={() => setShowAllExpenses((v) => !v)}
+                >
+                  {showAllExpenses
+                    ? "Show top 5 only"
+                    : `See all ${categoryBreakdown.length} categories`}
+                </button>
+              )}
             </div>
           )}
         </div>

@@ -12,6 +12,7 @@ import {
   faUsers,
   faRightFromBracket,
   faChartPie,
+  faBoxesStacked,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./AdminSidebar.module.scss";
 import type { AdminUser } from "@/types";
@@ -25,6 +26,7 @@ const navItems = [
   { label: "Carousel Slides", href: "/admin/carousels", icon: faImages },
   { label: "Service Times", href: "/admin/service-times", icon: faClock },
   { label: "Finance", href: "/admin/finance", icon: faChartPie },
+  { label: "Property", href: "/admin/property", icon: faBoxesStacked },
   { label: "Change History", href: "/admin/history", icon: faClockRotateLeft },
 ];
 

@@ -1,0 +1,547 @@
+@use "../../../../styles/abstracts/variables" as *;
+
+.propertyTabs {
+  display: flex;
+  gap: $space-1;
+  margin-bottom: $space-6;
+  border-bottom: 1px solid $border-light;
+  padding-bottom: $space-1;
+}
+
+.propertyTab {
+  padding: $space-2 $space-4;
+  border: none;
+  background: none;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $color-text-light;
+  cursor: pointer;
+  border-radius: $radius-sm $radius-sm 0 0;
+  transition: color $transition-fast, background-color $transition-fast;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-text;
+    background-color: $slate-50;
+  }
+}
+
+.propertyTabActive {
+  color: $color-accent;
+  border-bottom: 2px solid $color-accent;
+  margin-bottom: -1px;
+}
+
+.searchRow {
+  display: flex;
+  gap: $space-3;
+  margin-bottom: $space-4;
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  padding: 8px 12px;
+  border: 1px solid $border-light;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  outline: none;
+  min-width: 200px;
+  flex: 1;
+  max-width: 320px;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: $color-accent;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.1);
+  }
+
+  &::placeholder {
+    color: $slate-400;
+  }
+}
+
+.filterSelect {
+  padding: 8px 12px;
+  border: 1px solid $border-light;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  outline: none;
+  background: $white;
+  min-width: 140px;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: $color-accent;
+  }
+}
+
+.conditionBadge {
+  display: inline-block;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  padding: 2px 8px;
+  border-radius: $radius-pill;
+  color: $white;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-4;
+  margin-bottom: $space-6;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 639px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summaryCard {
+  background: $white;
+  border: 1px solid $border-light;
+  border-radius: $radius-md;
+  padding: 20px $space-6;
+}
+
+.summaryLabel {
+  font-size: $text-xs;
+  color: $color-text-light;
+  font-weight: $font-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: $space-2;
+}
+
+.summaryValue {
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: $color-text-heading;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.summaryMeta {
+  font-size: $text-xs;
+  color: $slate-400;
+  margin-top: $space-1;
+}
+
+.chartsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-6;
+  margin-bottom: $space-6;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chartCard {
+  background: $white;
+  border: 1px solid $border-light;
+  border-radius: $radius-md;
+  padding: $space-6;
+}
+
+.chartTitle {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $color-text-heading;
+  margin-bottom: $space-5;
+}
+
+.horizontalBars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hBarRow {
+  display: grid;
+  grid-template-columns: 120px 1fr 56px;
+  gap: $space-3;
+  align-items: center;
+}
+
+.hBarLabel {
+  font-size: 11px;
+  color: $color-text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hBarTrack {
+  height: 18px;
+  background: $slate-100;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.hBarFill {
+  height: 100%;
+  border-radius: 4px;
+  min-width: 4px;
+  transition: width 0.4s ease;
+}
+
+.hBarValue {
+  font-size: 11px;
+  color: $color-text-light;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.recentList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.recentItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-3;
+  border-radius: $radius-sm;
+  background: $slate-50;
+  font-size: $text-sm;
+}
+
+.recentMeta {
+  font-size: $text-xs;
+  color: $color-text-light;
+}
+
+// Forms
+.formCard {
+  background: $white;
+  border-radius: $radius-md;
+  box-shadow: 0 2px 10px rgba(15, 23, 32, 0.04);
+  padding: $space-8;
+  max-width: 640px;
+  border: 1px solid $border-light;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  margin-bottom: $space-5;
+}
+
+.formLabel {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $color-text;
+}
+
+.formInput,
+.formSelect,
+.formTextarea {
+  padding: 8px 12px;
+  border: 1px solid $border-light;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  outline: none;
+  background: $white;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: $color-accent;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.1);
+  }
+}
+
+.formTextarea {
+  min-height: 80px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.formRow {
+  display: flex;
+  gap: $space-4;
+  > * {
+    flex: 1;
+  }
+}
+
+.formActions {
+  display: flex;
+  gap: $space-3;
+  margin-top: $space-6;
+}
+
+.currencyWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 160px;
+}
+
+.currencyPrefix {
+  position: absolute;
+  left: 8px;
+  font-size: $text-sm;
+  color: $slate-400;
+  pointer-events: none;
+}
+
+.amountInput {
+  width: 100%;
+  padding: 8px 8px 8px 24px;
+  border: 1px solid $border-light;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  outline: none;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: $color-accent;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.1);
+  }
+}
+
+.error {
+  background: rgba($color-error, 0.08);
+  color: $color-error;
+  padding: $space-3 $space-4;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  margin-bottom: $space-4;
+}
+
+// Maintenance history
+.maintenanceSection {
+  margin-top: $space-8;
+  padding-top: $space-6;
+  border-top: 1px solid $border-light;
+}
+
+.inlineForm {
+  display: flex;
+  gap: $space-2;
+  margin-top: $space-3;
+  flex-wrap: wrap;
+  align-items: flex-end;
+
+  input {
+    padding: 6px 8px;
+    border: 1px solid $border-light;
+    border-radius: $radius-xs;
+    font-size: $text-sm;
+    outline: none;
+
+    &:focus {
+      border-color: $color-accent;
+    }
+  }
+}
+
+.inlineFormField {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  label {
+    font-size: 10px;
+    color: $color-text-light;
+    font-weight: $font-medium;
+  }
+}
+
+// Borrow modal
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4;
+}
+
+.modal {
+  background: $white;
+  border-radius: $radius-md;
+  padding: $space-8;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.modalTitle {
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: $color-text-heading;
+  margin-bottom: $space-6;
+}
+
+// Print
+.printView {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  background: $white;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #000;
+
+  @media print {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.printActions {
+  display: flex;
+  gap: $space-3;
+  margin-bottom: $space-8;
+
+  @media print {
+    display: none;
+  }
+}
+
+.printHeader {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.printLogo {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 8px;
+}
+
+.printChurchName {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.printReportTitle {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.printTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+
+  th,
+  td {
+    padding: 4px 8px;
+    text-align: left;
+    font-size: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    font-weight: 600;
+    background: #f5f5f5;
+  }
+
+  td:last-child,
+  th:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.printTotalRow {
+  td {
+    font-weight: 700;
+    font-size: 13px;
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+    padding: 8px;
+  }
+}
+
+.printSignatory {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  padding-top: 16px;
+}
+
+.printSignatoryBlock {
+  text-align: center;
+}
+
+.sigName {
+  font-weight: 600;
+  font-size: 13px;
+  border-top: 1px solid #333;
+  padding-top: 4px;
+  min-width: 180px;
+  display: inline-block;
+}
+
+.sigTitle {
+  font-size: 11px;
+  color: #555;
+  margin-top: 2px;
+}
+
+.sigLabel {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 32px;
+}
+
+.statusBorrowed {
+  background-color: $yellow-500;
+}
+
+.statusReturned {
+  background-color: $green-500;
+}
+
+.amountCell {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.backBtn {
+  padding: $space-2 $space-4;
+  border: 1px solid $border-light;
+  background: $white;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  color: $color-text;
+  cursor: pointer;
+
+  &:hover {
+    background: $slate-50;
+  }
+}
+
+.printBtn {
+  padding: $space-2 $space-4;
+  background: $color-primary-dark;
+  color: $white;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+
+  &:hover {
+    background: $color-accent-hover;
+  }
+}

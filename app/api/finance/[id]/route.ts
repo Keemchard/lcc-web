@@ -68,6 +68,7 @@ export async function PUT(
     };
 
     const fields = [
+      "type", "month", "year",
       "balanceForwarded", "incomeEntries", "additionalIncome",
       "disbursements", "preparedBy", "attestedBy",
     ] as const;

@@ -2,7 +2,7 @@ import { adminDb } from "@/lib/firebase/admin";
 import { FieldValue } from "firebase-admin/firestore";
 
 type LogChangeParams = {
-  entityType: "carouselSlide" | "serviceTime" | "financeReport";
+  entityType: "carouselSlide" | "serviceTime" | "financeReport" | "propertyItem" | "borrowRecord";
   entityId: string;
   entityTitle: string;
   action: "create" | "update" | "delete";
