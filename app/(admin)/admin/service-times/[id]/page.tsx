@@ -24,8 +24,84 @@ export default function EditServiceTimePage() {
   const fileRef = useRef<File | null>(null);
   const [service, setService] = useState<ServiceTime | null>(null);
   const [title, setTitle] = useState("");
-  const [time, setTime] = useState("");
+  const [dayStart, setDayStart] = useState("Sunday");
+  const [dayEnd, setDayEnd] = useState("");
+  const [timeStart, setTimeStart] = useState("08:00");
+  const [timeEnd, setTimeEnd] = useState("");
   const [location, setLocation] = useState("");
+
+  const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const DAY_SHORT: Record<string, string> = {
+    Sunday: "Sun", Monday: "Mon", Tuesday: "Tue", Wednesday: "Wed",
+    Thursday: "Thu", Friday: "Fri", Saturday: "Sat",
+  };
+  const SHORT_TO_FULL: Record<string, string> = {
+    Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday",
+    Thu: "Thursday", Fri: "Friday", Sat: "Saturday",
+  };
+
+  const fmt12 = (t: string) => {
+    const [h, m] = t.split(":").map(Number);
+    const period = h >= 12 ? "PM" : "AM";
+    return `${h % 12 || 12}:${m.toString().padStart(2, "0")} ${period}`;
+  };
+
+  const parse12to24 = (hStr: string, mStr: string, period: string) => {
+    let h = parseInt(hStr);
+    if (period.toUpperCase() === "PM" && h !== 12) h += 12;
+    if (period.toUpperCase() === "AM" && h === 12) h = 0;
+    return `${h.toString().padStart(2, "0")}:${mStr}`;
+  };
+
+  const parseTimeString = (timeStr: string) => {
+    // "Thu–Sat, 2:00–6:00 PM" or "Saturday, 4:00 AM"
+    const rangeMatch = timeStr.match(/^(\w+)–(\w+),\s*(\d{1,2}):(\d{2})\s*(AM|PM)–(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if (rangeMatch) {
+      const [, ds, de, h1, m1, p1, h2, m2, p2] = rangeMatch;
+      setDayStart(SHORT_TO_FULL[ds] || ds);
+      setDayEnd(SHORT_TO_FULL[de] || de);
+      setTimeStart(parse12to24(h1, m1, p1));
+      setTimeEnd(parse12to24(h2, m2, p2));
+      return;
+    }
+    // "Thu–Sat, 2:00 PM" (range days, single time)
+    const rangeDayMatch = timeStr.match(/^(\w+)–(\w+),\s*(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if (rangeDayMatch) {
+      const [, ds, de, h1, m1, p1] = rangeDayMatch;
+      setDayStart(SHORT_TO_FULL[ds] || ds);
+      setDayEnd(SHORT_TO_FULL[de] || de);
+      setTimeStart(parse12to24(h1, m1, p1));
+      return;
+    }
+    // "Saturday, 4:00–5:30 AM" (single day, time range)
+    const timeRangeMatch = timeStr.match(/^(\w+),\s*(\d{1,2}):(\d{2})–(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if (timeRangeMatch) {
+      const [, d, h1, m1, h2, m2, p] = timeRangeMatch;
+      setDayStart(SHORT_TO_FULL[d] || d);
+      setTimeStart(parse12to24(h1, m1, p));
+      setTimeEnd(parse12to24(h2, m2, p));
+      return;
+    }
+    // "Saturday, 4:00 AM" (single day, single time)
+    const singleMatch = timeStr.match(/^(\w+),\s*(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if (singleMatch) {
+      const [, d, h1, m1, p1] = singleMatch;
+      setDayStart(SHORT_TO_FULL[d] || d);
+      setTimeStart(parse12to24(h1, m1, p1));
+      return;
+    }
+  };
+
+  const combinedTime = (() => {
+    const hasRange = dayEnd && dayEnd !== dayStart;
+    const dayPart = hasRange
+      ? `${DAY_SHORT[dayStart]}–${DAY_SHORT[dayEnd]}`
+      : dayStart;
+    const timePart = timeEnd && timeEnd !== timeStart
+      ? `${fmt12(timeStart)}–${fmt12(timeEnd)}`
+      : fmt12(timeStart);
+    return `${dayPart}, ${timePart}`;
+  })();
   const [speaker, setSpeaker] = useState("");
   const [ctaLabel, setCtaLabel] = useState("");
   const [ctaHref, setCtaHref] = useState("");
@@ -42,7 +118,7 @@ export default function EditServiceTimePage() {
         if (found) {
           setService(found);
           setTitle(found.title);
-          setTime(found.time);
+          if (found.time) parseTimeString(found.time);
           setLocation(found.location);
           setSpeaker(found.speaker);
           setCtaLabel(found.ctaLabel);
@@ -78,7 +154,7 @@ export default function EditServiceTimePage() {
         body: JSON.stringify({
           imageUrl,
           title,
-          time,
+          time: combinedTime,
           location,
           speaker,
           ctaLabel,
@@ -138,13 +214,56 @@ export default function EditServiceTimePage() {
           </div>
 
           <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Day(s)</label>
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <select
+                className={styles.formInput}
+                value={dayStart}
+                onChange={(e) => setDayStart(e.target.value)}
+                style={{ flex: 1 }}
+              >
+                {DAYS.map((d) => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+              <span style={{ fontSize: 13, color: "#728094" }}>to</span>
+              <select
+                className={styles.formInput}
+                value={dayEnd}
+                onChange={(e) => setDayEnd(e.target.value)}
+                style={{ flex: 1 }}
+              >
+                <option value="">Same day</option>
+                {DAYS.map((d) => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className={styles.formGroup}>
             <label className={styles.formLabel}>Time</label>
-            <input
-              className={styles.formInput}
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              required
-            />
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <input
+                className={styles.formInput}
+                type="time"
+                value={timeStart}
+                onChange={(e) => setTimeStart(e.target.value)}
+                required
+                style={{ flex: 1 }}
+              />
+              <span style={{ fontSize: 13, color: "#728094" }}>to</span>
+              <input
+                className={styles.formInput}
+                type="time"
+                value={timeEnd}
+                onChange={(e) => setTimeEnd(e.target.value)}
+                style={{ flex: 1 }}
+              />
+            </div>
+            <span style={{ fontSize: 12, color: "#728094", marginTop: 4 }}>
+              Preview: {combinedTime}
+            </span>
           </div>
 
           <div className={styles.formGroup}>

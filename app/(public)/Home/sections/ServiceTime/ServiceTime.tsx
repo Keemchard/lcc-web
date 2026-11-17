@@ -19,9 +19,9 @@ const ServiceTime: FC = async () => {
       </p>
 
       {useFallback ? (
-        <ServiceTimeCards fallbackData={serviceTimeConstants} />
+        <ServiceTimeCards fallbackData={serviceTimeConstants.slice(0, 3)} />
       ) : (
-        <ServiceTimeCards firestoreData={serviceTimes} />
+        <ServiceTimeCards firestoreData={serviceTimes.slice(0, 3)} />
       )}
 
       <Link href="/service-times" className={styles.viewAllButton}>

@@ -9,7 +9,10 @@ export default function NewServiceTimePage() {
   const router = useRouter();
   const fileRef = useRef<File | null>(null);
   const [title, setTitle] = useState("");
-  const [time, setTime] = useState("");
+  const [dayStart, setDayStart] = useState("Sunday");
+  const [dayEnd, setDayEnd] = useState("");
+  const [timeStart, setTimeStart] = useState("08:00");
+  const [timeEnd, setTimeEnd] = useState("");
   const [location, setLocation] = useState("");
   const [speaker, setSpeaker] = useState("");
   const [ctaLabel, setCtaLabel] = useState("Learn More");
@@ -17,6 +20,29 @@ export default function NewServiceTimePage() {
   const [order, setOrder] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const DAY_SHORT: Record<string, string> = {
+    Sunday: "Sun", Monday: "Mon", Tuesday: "Tue", Wednesday: "Wed",
+    Thursday: "Thu", Friday: "Fri", Saturday: "Sat",
+  };
+
+  const fmt12 = (t: string) => {
+    const [h, m] = t.split(":").map(Number);
+    const period = h >= 12 ? "PM" : "AM";
+    return `${h % 12 || 12}:${m.toString().padStart(2, "0")} ${period}`;
+  };
+
+  const combinedTime = (() => {
+    const hasRange = dayEnd && dayEnd !== dayStart;
+    const dayPart = hasRange
+      ? `${DAY_SHORT[dayStart]}–${DAY_SHORT[dayEnd]}`
+      : dayStart;
+    const timePart = timeEnd && timeEnd !== timeStart
+      ? `${fmt12(timeStart)}–${fmt12(timeEnd)}`
+      : fmt12(timeStart);
+    return `${dayPart}, ${timePart}`;
+  })();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -41,7 +67,7 @@ export default function NewServiceTimePage() {
         body: JSON.stringify({
           imageUrl,
           title,
-          time,
+          time: combinedTime,
           location,
           speaker,
           ctaLabel,
@@ -91,14 +117,57 @@ export default function NewServiceTimePage() {
           </div>
 
           <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Day(s)</label>
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <select
+                className={styles.formInput}
+                value={dayStart}
+                onChange={(e) => setDayStart(e.target.value)}
+                style={{ flex: 1 }}
+              >
+                {DAYS.map((d) => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+              <span style={{ fontSize: 13, color: "#728094" }}>to</span>
+              <select
+                className={styles.formInput}
+                value={dayEnd}
+                onChange={(e) => setDayEnd(e.target.value)}
+                style={{ flex: 1 }}
+              >
+                <option value="">Same day</option>
+                {DAYS.map((d) => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className={styles.formGroup}>
             <label className={styles.formLabel}>Time</label>
-            <input
-              className={styles.formInput}
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              required
-              placeholder="e.g. 8:00 AM"
-            />
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <input
+                className={styles.formInput}
+                type="time"
+                value={timeStart}
+                onChange={(e) => setTimeStart(e.target.value)}
+                required
+                style={{ flex: 1 }}
+              />
+              <span style={{ fontSize: 13, color: "#728094" }}>to</span>
+              <input
+                className={styles.formInput}
+                type="time"
+                value={timeEnd}
+                onChange={(e) => setTimeEnd(e.target.value)}
+                style={{ flex: 1 }}
+                placeholder="Optional"
+              />
+            </div>
+            <span style={{ fontSize: 12, color: "#728094", marginTop: 4 }}>
+              Preview: {combinedTime}
+            </span>
           </div>
 
           <div className={styles.formGroup}>
