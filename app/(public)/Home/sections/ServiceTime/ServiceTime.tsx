@@ -12,11 +12,14 @@ const ServiceTime: FC = async () => {
 
   return (
     <section className={styles.container}>
-      <h4 className={styles.title}>SERVICE TIMES</h4>
-      <p className={styles.subtitle}>
-        Gather with us as we worship God, study His Word, and encourage one
-        another through Christ-centered fellowship.
-      </p>
+      <div className={styles.sectionHeader}>
+        <span className={styles.eyebrow}>Our schedule</span>
+        <h4 className={styles.title}>Service times</h4>
+        <p className={styles.subtitle}>
+          Gather with us as we worship God, study His Word, and encourage one
+          another through Christ-centered fellowship.
+        </p>
+      </div>
 
       {useFallback ? (
         <ServiceTimeCards fallbackData={serviceTimeConstants.slice(0, 3)} />
@@ -25,7 +28,7 @@ const ServiceTime: FC = async () => {
       )}
 
       <Link href="/service-times" className={styles.viewAllButton}>
-        VIEW ALL
+        View all services &rarr;
       </Link>
     </section>
   );

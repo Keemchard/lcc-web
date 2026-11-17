@@ -11,59 +11,31 @@ export const useScrollSections = ({ sectionIds }: UseScrollSectionsProps) => {
 
   const scrollToSection = useCallback((sectionId: string) => {
     const section = document.getElementById(sectionId);
-
     if (!section) return;
-
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   useEffect(() => {
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
+    const handleScroll = () => {
+      const offset = 120;
+      let current = sectionIds[0] ?? "";
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSections = entries.filter((entry) => entry.isIntersecting);
-
-        if (visibleSections.length === 0) return;
-
-        const mostVisibleSection = visibleSections.reduce((current, next) => {
-          return next.intersectionRatio > current.intersectionRatio
-            ? next
-            : current;
-        });
-
-        if (mostVisibleSection.target.id) {
-          setActiveSection((current) =>
-            current === mostVisibleSection.target.id
-              ? current
-              : mostVisibleSection.target.id,
-          );
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top <= offset) {
+          current = id;
         }
-      },
-      {
-        rootMargin: "-20% 0px -20% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      },
-    );
-
-    sections.forEach((section) => {
-      if (section) {
-        observer.observe(section);
       }
-    });
 
-    return () => {
-      observer.disconnect();
+      setActiveSection((prev) => (prev === current ? prev : current));
     };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [sectionIds]);
 
-  return {
-    activeSection,
-    scrollToSection,
-  };
+  return { activeSection, scrollToSection };
 };

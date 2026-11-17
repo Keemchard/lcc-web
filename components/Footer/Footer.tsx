@@ -22,7 +22,7 @@ const Footer: FC = () => {
           })}
         </div>
 
-        <p>@2026 LIVINGWATER COMMUNITY CHURCH | ALL RIGHTS RESERVE</p>
+        <p>&copy; 2026 Livingwater Community Church. All rights reserved.</p>
       </section>
     </div>
   );

@@ -10,31 +10,65 @@
   align-items: center;
 }
 
+.sectionHeader {
+  width: 100%;
+  max-width: $container-width;
+  margin-bottom: $space-4;
+
+  @media (min-width: 640px) {
+    text-align: left;
+  }
+
+  @media (max-width: 639px) {
+    text-align: center;
+  }
+}
+
+.eyebrow {
+  display: block;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $blue-500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: $space-3;
+}
+
 .title {
-  @include section-title;
+  font-size: $text-3xl;
+  font-weight: $font-semibold;
   color: $color-text-heading;
+  line-height: 1.15;
+
+  @media (max-width: 639px) {
+    font-size: $text-2xl;
+  }
 }
 
 .subtitle {
   margin-top: $space-3;
   line-height: 1.6;
-  text-align: center;
   max-width: 520px;
   color: $color-text-light;
   font-size: $text-base;
+
+  @media (max-width: 639px) {
+    margin-inline: auto;
+  }
 }
 
 .cardContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: $space-6;
-  margin-top: 3rem;
+  gap: $space-8;
+  margin-top: 2.5rem;
   width: 100%;
   max-width: $container-width;
 
   @media (max-width: 1023px) {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 680px;
+    max-width: 700px;
+    gap: $space-6;
   }
 
   @media (max-width: 639px) {
@@ -44,20 +78,23 @@
 }
 
 .viewAllButton {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
   margin-top: 3rem;
-  padding: $space-3 $space-10;
-  border-radius: $radius-sm;
-  background-color: $color-primary-dark;
-  color: $color-text-inverse;
-  border: 1px solid transparent;
-  font-size: $text-base;
+  padding: 12px 28px;
+  border-radius: 8px;
+  background: transparent;
+  color: $color-text-heading;
+  border: 1px solid $border-medium;
+  font-size: $text-sm;
   font-weight: $font-medium;
   cursor: pointer;
-  transition: background-color $transition-fast;
+  transition: border-color $transition-fast, color $transition-fast;
   text-align: center;
 
   &:hover {
-    background-color: $color-accent-hover;
+    border-color: $color-accent;
+    color: $color-accent;
   }
 }

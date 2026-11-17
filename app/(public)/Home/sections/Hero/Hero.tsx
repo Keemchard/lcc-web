@@ -2,9 +2,7 @@
 
 import { FC } from "react";
 import styles from "./Hero.module.scss";
-import { heroCta } from "@/constants/heroCta";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousel from "@/components/Carousel/Carousel";
 import { useScrollSections } from "@/hooks/useScrollSections";
 import { navigationItems } from "@/constants/navigation";
@@ -15,8 +13,6 @@ const heroImages = [
   "/images/hero-bg-2.jpg",
   "/images/hero-bg.jpg",
 ];
-
-const subtitle = "Love God. Love people. Make disciples.";
 
 const Hero: FC = () => {
   const { scrollToSection } = useScrollSections({
@@ -54,32 +50,29 @@ const Hero: FC = () => {
       </div>
 
       <div className={styles.content}>
-        <h3 className={styles.title}>WELCOME TO OUR COMMUNITY</h3>
-
-        <p className={styles.subtitle}>{subtitle.toUpperCase()}</p>
+        <span className={styles.eyebrow}>Welcome to</span>
+        <h1 className={styles.title}>
+          Livingwater
+          <br />
+          Community Church
+        </h1>
+        <p className={styles.subtitle}>
+          Love God. Love People. Make Disciples.
+        </p>
 
         <div className={styles.buttonContainer}>
-          {heroCta.map((cta) => {
-            const { id, label, icon, sectionId, href } = cta;
-
-            return (
-              <button
-                key={id}
-                className={styles.ctaButton}
-                onClick={() => {
-                  if (href) {
-                    router.push(href);
-                  } else if (sectionId) {
-                    scrollToSection(sectionId.slice(1));
-                  }
-                }}
-              >
-                <FontAwesomeIcon icon={icon} className={styles.ctaIcon} />
-
-                <p className={styles.ctaLabel}>{label}</p>
-              </button>
-            );
-          })}
+          <button
+            className={styles.primaryBtn}
+            onClick={() => scrollToSection("service-times")}
+          >
+            Join us this Sunday
+          </button>
+          <button
+            className={styles.secondaryBtn}
+            onClick={() => router.push("/about")}
+          >
+            Learn more
+          </button>
         </div>
       </div>
     </div>

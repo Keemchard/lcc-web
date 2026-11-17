@@ -2,33 +2,43 @@
 
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   text-align: center;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 
   .socMedContainer {
     display: flex;
     gap: 10px;
     justify-content: center;
-    margin: 0.5rem;
+    margin-bottom: $space-4;
 
     a {
-      width: 35px;
-      height: 35px;
-      border: 1px solid white;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: $radius-circle;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: border-color $transition-fast, background-color $transition-fast;
+
+      &:hover {
+        border-color: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.05);
+      }
 
       .contactIcon {
-        color: $color-text-inverse;
+        color: $blue-300;
         font-size: $text-sm;
       }
     }
   }
 
   p {
-    font-size: $text-sm;
-    color: $color-text-inverse;
+    font-size: $text-xs;
+    color: $blue-500;
+    letter-spacing: 0.02em;
   }
 }

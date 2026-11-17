@@ -4,7 +4,6 @@
 // ── Layout ──────────────────────────────────────────────
 .page {
   min-height: 100vh;
-  padding-top: 7rem;
   background: $bg-main;
 }
 
@@ -27,65 +26,81 @@
 // ── Page hero ───────────────────────────────────────────
 .pageHero {
   position: relative;
-  height: 55vh;
-  min-height: 340px;
+  height: 60vh;
+  min-height: 400px;
   overflow: hidden;
-  @include flex-center-column;
+  display: flex;
+  align-items: center;
+}
 
-  .pageHeroBg {
-    object-fit: cover;
+.pageHeroBg {
+  object-fit: cover;
+  object-position: center;
+}
+
+.pageHeroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      to right,
+      rgba($blue-950, 0.95) 0%,
+      rgba($blue-950, 0.8) 35%,
+      rgba($blue-950, 0.4) 60%,
+      rgba($blue-950, 0.15) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba($blue-950, 0.6) 0%,
+      transparent 40%
+    );
+}
+
+.pageHeroContent {
+  position: relative;
+  z-index: 2;
+  padding-left: clamp(2rem, 8vw, 8rem);
+  padding-right: $space-6;
+  max-width: 650px;
+
+  @media (max-width: 639px) {
+    padding-left: $space-6;
+    max-width: 100%;
   }
+}
 
-  .pageHeroOverlay {
-    position: absolute;
-    inset: 0;
-    background: $blue-950;
-    opacity: 0.87;
-    z-index: 1;
-  }
+.pageHeroEyebrow {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  letter-spacing: 0.08em;
+  color: $blue-300;
+  text-transform: uppercase;
+  margin-bottom: $space-4;
+  display: block;
 
-  .pageHeroContent {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding-inline: $space-6;
-  }
-
-  .pageHeroEyebrow {
+  @media (max-width: 639px) {
     font-size: $text-xs;
-    font-weight: $font-semibold;
-    letter-spacing: 0.18em;
-    color: $blue-400;
-    text-transform: uppercase;
-    margin-bottom: $space-3;
   }
+}
 
-  .pageHeroTitle {
-    font-size: $text-6xl;
-    font-weight: $font-regular;
-    color: $color-text-inverse;
-    line-height: 1.1;
+.pageHeroTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: $font-bold;
+  color: $white;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: $space-4;
+}
 
-    @media (max-width: 1023px) {
-      font-size: $text-5xl;
-    }
+.pageHeroSubtitle {
+  font-size: $text-lg;
+  color: $blue-200;
+  max-width: 500px;
+  line-height: 1.6;
 
-    @media (max-width: 639px) {
-      font-size: $text-4xl;
-    }
-  }
-
-  .pageHeroSubtitle {
-    margin-top: $space-4;
-    font-size: $text-lg;
-    color: $blue-300;
-    max-width: 540px;
-    margin-inline: auto;
-    line-height: 1.6;
-
-    @media (max-width: 639px) {
-      font-size: $text-base;
-    }
+  @media (max-width: 639px) {
+    font-size: $text-base;
   }
 }
 
@@ -93,18 +108,25 @@
 .eyebrow {
   font-size: $text-xs;
   font-weight: $font-semibold;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: $color-primary-light;
+  color: $blue-500;
   margin-bottom: $space-3;
   display: block;
 }
 
 // ── Section title ────────────────────────────────────────
 .sectionTitle {
-  @include section-title;
+  font-size: $text-3xl;
+  font-weight: $font-semibold;
   color: $color-text-heading;
+  line-height: 1.15;
+  text-align: center;
   margin-bottom: $space-4;
+
+  @media (max-width: 639px) {
+    font-size: $text-2xl;
+  }
 
   &.light {
     color: $color-text-inverse;
@@ -454,20 +476,26 @@
 
 // ── Join CTA ─────────────────────────────────────────────
 .ctaSection {
-  background: $color-primary-light;
+  background: $blue-900;
   text-align: center;
 
   .ctaTitle {
-    @include section-title;
-    color: $color-text-inverse;
+    font-size: $text-3xl;
+    font-weight: $font-semibold;
+    color: $white;
     margin-bottom: $space-4;
+    line-height: 1.15;
+
+    @media (max-width: 639px) {
+      font-size: $text-2xl;
+    }
   }
 
   .ctaBody {
     font-size: $text-base;
-    color: rgba(255, 255, 255, 0.85);
+    color: $blue-200;
     line-height: 1.8;
-    max-width: 560px;
+    max-width: 540px;
     margin-inline: auto;
     margin-bottom: 2.5rem;
   }
@@ -475,21 +503,22 @@
   .ctaButton {
     display: inline-block;
     background: $white;
-    color: $color-primary-light;
+    color: $blue-950;
     font-size: $text-sm;
     font-weight: $font-semibold;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.9rem 2.5rem;
-    border-radius: $radius-xs;
+    padding: 14px 32px;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
-    transition:
-      background $transition-fast,
-      color $transition-fast;
+    transition: background $transition-fast, transform $transition-fast;
 
     &:hover {
       background: $blue-100;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
     }
   }
 }

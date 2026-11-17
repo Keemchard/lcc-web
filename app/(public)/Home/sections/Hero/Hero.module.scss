@@ -4,6 +4,7 @@
 .container {
   position: relative;
   height: 100vh;
+  min-height: 600px;
   overflow: hidden;
 }
 
@@ -18,49 +19,77 @@
   flex: 0 0 100%;
   min-width: 0;
   height: 100vh;
+  min-height: 600px;
 }
 
 .heroBgImage {
   object-fit: cover;
+  object-position: center;
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  background: black;
-  opacity: 0.88;
   z-index: 1;
+  background:
+    linear-gradient(
+      to right,
+      rgba($blue-950, 0.95) 0%,
+      rgba($blue-950, 0.8) 35%,
+      rgba($blue-950, 0.4) 60%,
+      rgba($blue-950, 0.15) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba($blue-950, 0.6) 0%,
+      transparent 40%
+    );
 }
 
 .content {
   position: relative;
   z-index: 2;
   height: 100%;
-  padding-inline: $space-6;
-  @include flex-center-column;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: clamp(2rem, 8vw, 8rem);
+  padding-right: $space-6;
+  max-width: 700px;
+
+  @media (max-width: 639px) {
+    padding-left: $space-6;
+    max-width: 100%;
+  }
+}
+
+.eyebrow {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $blue-300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: $space-4;
+
+  @media (max-width: 639px) {
+    font-size: $text-xs;
+  }
 }
 
 .title {
-  @include header-title;
-  color: $color-text-inverse;
-  text-align: center;
-
-  @media (max-width: 1023px) {
-    font-size: $text-4xl;
-  }
-
-  @media (max-width: 639px) {
-    font-size: $text-3xl;
-  }
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  font-weight: $font-bold;
+  color: $white;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: $space-6;
 }
 
 .subtitle {
-  margin-top: 5px;
-  line-height: 1.6;
-  text-align: center;
-  max-width: 550px;
-  color: $color-primary-light;
-  @include sub-header;
+  font-size: $text-xl;
+  font-weight: $font-regular;
+  color: $blue-200;
+  line-height: 1.5;
 
   @media (max-width: 639px) {
     font-size: $text-base;
@@ -68,42 +97,50 @@
 }
 
 .buttonContainer {
-  @include flex-center;
-  gap: 7px;
-  margin-top: 3rem;
-  flex-wrap: wrap;
+  display: flex;
+  gap: $space-4;
+  margin-top: $space-10;
 
-  .ctaButton {
-    border-radius: $radius-xs;
-    border-width: 1px;
-    padding: 20px 10px;
-    position: relative;
-    width: 120px;
-    display: flex;
+  @media (max-width: 639px) {
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    @include opacity-button;
+    gap: $space-3;
+  }
+}
 
-    @media (max-width: 639px) {
-      width: 95px;
-      padding: 16px 8px;
-    }
+.primaryBtn {
+  padding: 14px 32px;
+  background: $white;
+  color: $blue-950;
+  border: none;
+  border-radius: 8px;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  cursor: pointer;
+  transition: background-color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    background: $blue-100;
+    transform: translateY(-1px);
   }
 
-  .ctaLabel {
-    font-size: $text-xs;
-    color: white;
+  &:active {
+    transform: translateY(0);
   }
+}
 
-  .ctaIcon {
-    margin-top: 15px;
-    font-size: $text-3xl;
-    color: white;
+.secondaryBtn {
+  padding: 14px 32px;
+  background: transparent;
+  color: $white;
+  border: 1px solid rgba($white, 0.3);
+  border-radius: 8px;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: border-color $transition-fast, background-color $transition-fast;
 
-    @media (max-width: 639px) {
-      font-size: $text-2xl;
-      margin-top: 10px;
-    }
+  &:hover {
+    border-color: rgba($white, 0.6);
+    background: rgba($white, 0.06);
   }
 }

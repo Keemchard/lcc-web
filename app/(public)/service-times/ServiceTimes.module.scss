@@ -2,41 +2,66 @@
 @use "../../../styles/abstracts/mixins" as *;
 
 .page {
-  padding-top: 7rem;
+  min-height: 100vh;
+  background: $bg-main;
 }
 
 .hero {
-  background-color: $bg-dark-section;
-  padding: 5rem $space-6;
-  text-align: center;
+  background-color: $blue-950;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba($blue-950, 0.95) 0%,
+      rgba($blue-950, 0.8) 50%,
+      rgba($blue-900, 0.9) 100%
+    );
+  padding: 8rem $space-6 5rem;
 }
 
-.eyebrow {
-  font-size: $text-xs;
-  font-weight: $font-semibold;
-  letter-spacing: 0.16em;
-  color: $color-primary-light;
-  text-transform: uppercase;
-  margin-bottom: $space-4;
-}
-
-.heading {
-  font-size: $text-4xl;
-  font-weight: $font-bold;
-  color: $white;
-  margin-bottom: $space-4;
+.heroContent {
+  max-width: $container-width;
+  margin: 0 auto;
+  padding-left: clamp(0rem, 4vw, 4rem);
 
   @media (max-width: 639px) {
-    font-size: $text-2xl;
+    padding-left: 0;
+    text-align: center;
   }
 }
 
-.subtitle {
-  font-size: $text-base;
+.eyebrow {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  letter-spacing: 0.08em;
   color: $blue-300;
-  max-width: 520px;
-  margin: 0 auto;
+  text-transform: uppercase;
+  margin-bottom: $space-4;
+  display: block;
+
+  @media (max-width: 639px) {
+    font-size: $text-xs;
+  }
+}
+
+.heading {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: $font-bold;
+  color: $white;
+  margin-bottom: $space-4;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: $text-lg;
+  color: $blue-200;
+  max-width: 500px;
   line-height: 1.6;
+
+  @media (max-width: 639px) {
+    font-size: $text-base;
+    margin-inline: auto;
+  }
 }
 
 .content {

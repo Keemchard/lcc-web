@@ -1,23 +1,23 @@
 export const navigationItems = [
   {
-    label: "HOME",
+    label: "Home",
     id: "home",
   },
   {
-    label: "ABOUT",
+    label: "About",
     id: "about",
     href: "/about",
   },
   {
-    label: "MINISTRIES",
+    label: "Ministries",
     id: "ministries",
   },
   {
-    label: "SERVICE TIMES",
+    label: "Service Times",
     id: "service-times",
   },
   {
-    label: "CONTACT",
+    label: "Contact",
     id: "contact",
   },
 ];

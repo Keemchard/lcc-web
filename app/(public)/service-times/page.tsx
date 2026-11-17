@@ -19,12 +19,14 @@ export default async function ServiceTimesPage() {
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
-        <p className={styles.eyebrow}>LIVINGWATER COMMUNITY CHURCH</p>
-        <h1 className={styles.heading}>Service Times</h1>
-        <p className={styles.subtitle}>
-          Gather with us as we worship God, study His Word, and encourage one
-          another through Christ-centered fellowship.
-        </p>
+        <div className={styles.heroContent}>
+          <span className={styles.eyebrow}>Our schedule</span>
+          <h1 className={styles.heading}>Service times</h1>
+          <p className={styles.subtitle}>
+            Gather with us as we worship God, study His Word, and encourage one
+            another through Christ-centered fellowship.
+          </p>
+        </div>
       </div>
 
       <section className={styles.content}>
