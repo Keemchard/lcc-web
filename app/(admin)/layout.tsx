@@ -6,6 +6,8 @@ import AdminSidebar from "@/components/AdminSidebar/AdminSidebar";
 import SessionGuard from "@/components/AdminSidebar/SessionGuard";
 import styles from "./Admin.module.scss";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminLayout({
   children,
 }: {

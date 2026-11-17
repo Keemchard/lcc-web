@@ -2,16 +2,18 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 
-const IDLE_TIMEOUT = 30 * 60 * 1000; // 30 minutes of inactivity
-const TOKEN_REFRESH = 45 * 60 * 1000; // refresh token every 45 min
+const IDLE_TIMEOUT = 30 * 60 * 1000;
+const TOKEN_REFRESH = 45 * 60 * 1000;
 const ACTIVITY_EVENTS = ["mousedown", "keydown", "scroll", "touchstart"];
 
 export default function SessionGuard() {
   const router = useRouter();
   const lastActivity = useRef(Date.now());
   const idleTimer = useRef<ReturnType<typeof setTimeout>>(null);
+  const authReady = useRef(false);
 
   const logout = useCallback(async () => {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -19,11 +21,9 @@ export default function SessionGuard() {
   }, [router]);
 
   const refreshSession = useCallback(async () => {
-    const user = auth?.currentUser;
-    if (!user) {
-      logout();
-      return;
-    }
+    if (!auth) return;
+    const user = auth.currentUser;
+    if (!user) return;
     try {
       const token = await user.getIdToken(true);
       const res = await fetch("/api/auth/login", {
@@ -31,35 +31,46 @@ export default function SessionGuard() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken: token }),
       });
-      if (!res.ok) logout();
+      if (!res.ok && authReady.current) {
+        logout();
+      }
     } catch {
-      logout();
+      // Don't logout on network errors
     }
   }, [logout]);
 
   const resetIdleTimer = useCallback(() => {
     lastActivity.current = Date.now();
     if (idleTimer.current) clearTimeout(idleTimer.current);
-    idleTimer.current = setTimeout(logout, IDLE_TIMEOUT);
+    idleTimer.current = setTimeout(() => {
+      if (authReady.current) logout();
+    }, IDLE_TIMEOUT);
   }, [logout]);
 
   useEffect(() => {
     if (!auth) return;
 
-    // Initial session refresh
-    refreshSession();
+    // Wait for Firebase Auth to confirm the user state before doing anything
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        authReady.current = true;
+        refreshSession();
+        resetIdleTimer();
+      } else if (authReady.current) {
+        // Only logout if auth was previously ready (not initial null)
+        logout();
+      }
+    });
 
-    // Start idle timer
-    resetIdleTimer();
-
-    // Listen for user activity
-    const handleActivity = () => resetIdleTimer();
+    const handleActivity = () => {
+      if (authReady.current) resetIdleTimer();
+    };
     ACTIVITY_EVENTS.forEach((event) =>
       window.addEventListener(event, handleActivity, { passive: true })
     );
 
-    // Refresh token periodically (only if user is active)
     const tokenInterval = setInterval(() => {
+      if (!authReady.current) return;
       const idleTime = Date.now() - lastActivity.current;
       if (idleTime < IDLE_TIMEOUT) {
         refreshSession();
@@ -67,13 +78,14 @@ export default function SessionGuard() {
     }, TOKEN_REFRESH);
 
     return () => {
+      unsubscribe();
       ACTIVITY_EVENTS.forEach((event) =>
         window.removeEventListener(event, handleActivity)
       );
       clearInterval(tokenInterval);
       if (idleTimer.current) clearTimeout(idleTimer.current);
     };
-  }, [refreshSession, resetIdleTimer]);
+  }, [refreshSession, resetIdleTimer, logout]);
 
   return null;
 }
