@@ -17,24 +17,26 @@ const CarouselClient: FC<Props> = ({ slides }) => {
         loop: true,
         dragFree: false,
         align: "start",
+        slidesToScroll: 1,
       }}
+      showArrows={slides.length > 3}
     >
       {slides.map((slide, index) => (
-        <div key={slide.id} className={styles.slide}>
+        <div key={slide.id} className={styles.card}>
           <Image
             src={slide.imageUrl}
             alt={slide.title}
             fill
-            sizes="100vw"
+            sizes="(max-width: 639px) 85vw, (max-width: 1023px) 45vw, 30vw"
             priority={index === 0}
             loading={index === 0 ? "eager" : "lazy"}
-            className={styles.slideImage}
+            className={styles.cardImage}
           />
-          <div className={styles.slideOverlay} />
-          <div className={styles.slideContent}>
-            <h3 className={styles.slideTitle}>{slide.title}</h3>
-            <p className={styles.slideDetails}>{slide.details}</p>
-            <span className={styles.slideTime}>{slide.time}</span>
+          <div className={styles.cardOverlay} />
+          <div className={styles.cardContent}>
+            <span className={styles.cardTime}>{slide.time}</span>
+            <h3 className={styles.cardTitle}>{slide.title}</h3>
+            <p className={styles.cardDetails}>{slide.details}</p>
           </div>
         </div>
       ))}
