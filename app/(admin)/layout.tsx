@@ -4,6 +4,7 @@ import { verifyToken, getUserRole } from "@/lib/auth/session";
 import { adminDb } from "@/lib/firebase/admin";
 import AdminSidebar from "@/components/AdminSidebar/AdminSidebar";
 import SessionGuard from "@/components/AdminSidebar/SessionGuard";
+import { AuthProvider } from "@/lib/auth/context";
 import styles from "./Admin.module.scss";
 
 export default async function AdminLayout({
@@ -32,10 +33,12 @@ export default async function AdminLayout({
   };
 
   return (
-    <div className={styles.adminLayout}>
-      <SessionGuard />
-      <AdminSidebar user={adminUser} />
-      <main className={styles.adminContent}>{children}</main>
-    </div>
+    <AuthProvider>
+      <div className={styles.adminLayout}>
+        <SessionGuard />
+        <AdminSidebar user={adminUser} />
+        <main className={styles.adminContent}>{children}</main>
+      </div>
+    </AuthProvider>
   );
 }

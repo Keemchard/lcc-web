@@ -75,6 +75,7 @@ import L from "leaflet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChurch } from "@fortawesome/free-solid-svg-icons";
 import { renderToString } from "react-dom/server";
+import "leaflet/dist/leaflet.css";
 
 const position: [number, number] = [14.392407126637883, 120.86220430292863];
 

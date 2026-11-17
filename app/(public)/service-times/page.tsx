@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getServiceTimes } from "@/lib/firestore/serviceTimes";
+
+export const revalidate = 60;
 import serviceTimeConstants from "@/constants/serviceTime";
 import ServiceTimeCards from "../Home/sections/ServiceTime/ServiceTimeCards";
 import styles from "./ServiceTimes.module.scss";

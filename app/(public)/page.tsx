@@ -1,6 +1,8 @@
 import Home from "./Home/Home";
 import { siteUrl } from "@/app/layout";
 
+export const revalidate = 60;
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Church",
